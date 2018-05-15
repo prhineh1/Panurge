@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Panurge</title>
+</head>
+<body>
+
+<form method="POST" action="/loginSubmit">
+    <input type="text" placeholder="Username" name="username" required>
+    <input type="password" placeholder="password" name="password" required>
+    <input type="submit" value="Login">
+</form>
+{{if .Error}}
+<p style="color:red">{{.Error}}</p>
+{{end}}
+<p>Not registered? <a href="/register">click here</a>.</p>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Panurge</title>
+</head>
+<body>
+
+<h2 style="text-align: center">Index</h2>
+{{if eq .Role "Admin"}}
+<h4>Only the Admin can see this</h4>
+{{end}}
+<a href="/logout">Logout</a>
+<script>
+    var x = document.cookie.split(';');
+    console.log(x);
+</script>
+</body>
+</html>
