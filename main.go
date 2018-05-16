@@ -27,8 +27,9 @@ type session struct {
 }
 
 var dbUsers = map[string]user{}
-var dbSessions = map[string]string{}
+var dbSessions = map[string]session{}
 var tpl *template.Template
+var sessionTimeout time.Time
 
 const sessionLength int = 30
 
@@ -36,6 +37,7 @@ func init() {
 	xs, _ := bcrypt.GenerateFromPassword([]byte("wanwa1Ha"), bcrypt.DefaultCost)
 	dbUsers["prhineh1"] = user{"prhineh1", xs, "Phil", "Rhinehart", "Admin"}
 	tpl = template.Must(template.ParseGlob("templates/*.html"))
+	sessionTimeout = time.Now()
 }
 
 func main() {
@@ -50,7 +52,7 @@ func main() {
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
-	if !authenticate(req) {
+	if !authenticate(w, req) {
 		http.Redirect(w, req, "/login", http.StatusSeeOther)
 		return
 	}
@@ -60,7 +62,7 @@ func index(w http.ResponseWriter, req *http.Request) {
 }
 
 func login(w http.ResponseWriter, req *http.Request) {
-	if authenticate(req) {
+	if authenticate(w, req) {
 		http.Redirect(w, req, "/", http.StatusSeeOther)
 		return
 	}
@@ -87,13 +89,14 @@ func loginSubmit(w http.ResponseWriter, req *http.Request) {
 	}
 
 	c := createSession(w)
-	dbSessions[c.Value] = un
+	s := session{un, time.Now()}
+	dbSessions[c.Value] = s
 	http.Redirect(w, req, "/", http.StatusTemporaryRedirect)
 
 }
 
 func register(w http.ResponseWriter, req *http.Request) {
-	if authenticate(req) {
+	if authenticate(w, req) {
 		http.Redirect(w, req, "/", http.StatusSeeOther)
 		return
 	}
@@ -117,7 +120,8 @@ func registerSubmit(w http.ResponseWriter, req *http.Request) {
 	xs, _ := bcrypt.GenerateFromPassword([]byte(p), bcrypt.DefaultCost)
 	dbUsers[un] = user{un, xs, f, l, "visitor"}
 	c := createSession(w)
-	dbSessions[c.Value] = un
+	s := session{un, time.Now()}
+	dbSessions[c.Value] = s
 	http.Redirect(w, req, "/", http.StatusTemporaryRedirect)
 }
 
@@ -130,6 +134,11 @@ func logout(w http.ResponseWriter, req *http.Request) {
 	delete(dbSessions, c.Value)
 	c.MaxAge = -1
 	http.SetCookie(w, c)
+
+	// clean sessions
+	if time.Now().Sub(sessionTimeout) > (time.Second * 30) {
+		go cleanSessions()
+	}
 
 	http.Redirect(w, req, "/login", http.StatusSeeOther)
 }
@@ -145,15 +154,19 @@ func createSession(w http.ResponseWriter) *http.Cookie {
 	return c
 }
 
-func authenticate(req *http.Request) bool {
+func authenticate(w http.ResponseWriter, req *http.Request) bool {
 	// check for a cookie
 	c, err := req.Cookie("session")
 	if err != nil {
 		return false
 	}
 
+	// refresh session
+	c.MaxAge = sessionLength
+	http.SetCookie(w, c)
+
 	// check for a user
-	_, ok := dbUsers[dbSessions[c.Value]]
+	_, ok := dbUsers[dbSessions[c.Value].UserName]
 	return ok
 }
 
@@ -161,9 +174,17 @@ func getUser(w http.ResponseWriter, req *http.Request) user {
 	c, _ := req.Cookie("session")
 
 	var u user
-	un, ok := dbSessions[c.Value]
+	ses, ok := dbSessions[c.Value]
 	if ok {
-		u = dbUsers[un]
+		u = dbUsers[ses.UserName]
 	}
 	return u
+}
+
+func cleanSessions() {
+	for k, v := range dbSessions {
+		if time.Now().Sub(v.lastActive) > (time.Minute * 5) {
+			delete(dbSessions, k)
+		}
+	}
 }
