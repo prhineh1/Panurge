@@ -5,6 +5,7 @@ import (
 	"text/template"
 	"time"
 
+	_ "github.com/lib/pq"
 	"github.com/satori/go.uuid"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -52,17 +53,17 @@ func main() {
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
-	if !authenticate(w, req) {
+	auth, user := authenticate(w, req)
+	if !auth {
 		http.Redirect(w, req, "/login", http.StatusSeeOther)
 		return
 	}
 
-	user := getUser(w, req)
 	tpl.ExecuteTemplate(w, "index.html", user)
 }
 
 func login(w http.ResponseWriter, req *http.Request) {
-	if authenticate(w, req) {
+	if auth, _ := authenticate(w, req); auth {
 		http.Redirect(w, req, "/", http.StatusSeeOther)
 		return
 	}
@@ -96,7 +97,7 @@ func loginSubmit(w http.ResponseWriter, req *http.Request) {
 }
 
 func register(w http.ResponseWriter, req *http.Request) {
-	if authenticate(w, req) {
+	if auth, _ := authenticate(w, req); auth {
 		http.Redirect(w, req, "/", http.StatusSeeOther)
 		return
 	}
@@ -154,11 +155,11 @@ func createSession(w http.ResponseWriter) *http.Cookie {
 	return c
 }
 
-func authenticate(w http.ResponseWriter, req *http.Request) bool {
+func authenticate(w http.ResponseWriter, req *http.Request) (b bool, u user) {
 	// check for a cookie
 	c, err := req.Cookie("session")
 	if err != nil {
-		return false
+		return false, user{}
 	}
 
 	// refresh session
@@ -166,19 +167,8 @@ func authenticate(w http.ResponseWriter, req *http.Request) bool {
 	http.SetCookie(w, c)
 
 	// check for a user
-	_, ok := dbUsers[dbSessions[c.Value].UserName]
-	return ok
-}
-
-func getUser(w http.ResponseWriter, req *http.Request) user {
-	c, _ := req.Cookie("session")
-
-	var u user
-	ses, ok := dbSessions[c.Value]
-	if ok {
-		u = dbUsers[ses.UserName]
-	}
-	return u
+	u, ok := dbUsers[dbSessions[c.Value].UserName]
+	return ok, u
 }
 
 func cleanSessions() {
