@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -31,21 +30,21 @@ func Register(env *config.Environment) http.Handler {
 			p := req.FormValue("password")
 			xs, _ := bcrypt.GenerateFromPassword([]byte(p), bcrypt.DefaultCost)
 
-			err := env.Db.CreateUser(&models.User{un, xs, "registered"})
+			err := env.Db.CreateUser(&models.User{un, xs, "01451022-01b5-4152-bc6e-be46f883e65c"})
 			if err != nil {
 				if strings.Contains(err.Error(), "duplicate") {
 					env.Tpl.ExecuteTemplate(w, "register.html", message{"This username is already taken; please choose another."})
 					return
-				} else {
-					fmt.Println("some other error")
 				}
+
+				http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 
 			}
 
 			// c := createSession(w)
 			// s := session{un, time.Now()}
 			// dbSessions[c.Value] = s
-			http.Redirect(w, req, "/", http.StatusTemporaryRedirect)
+			http.Redirect(w, req, "/", http.StatusSeeOther)
 		}
 	})
 
