@@ -8,6 +8,7 @@ import (
 
 type Datastore interface {
 	CreateUser(user *User) error
+	VerifyLogin(ps, un string) error
 }
 
 type DB struct {

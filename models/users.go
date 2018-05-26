@@ -1,5 +1,11 @@
 package models
 
+import (
+	"errors"
+
+	"golang.org/x/crypto/bcrypt"
+)
+
 type User struct {
 	UserName string
 	Password []byte
@@ -12,4 +18,22 @@ func (db *DB) CreateUser(user *User) error {
 		return err
 	}
 	return nil
+}
+
+func (db *DB) VerifyLogin(ps, un string) error {
+	row := db.QueryRow("SELECT password FROM users WHERE username = $1", un)
+
+	var pwd []byte
+	err := row.Scan(&pwd)
+	if err != nil {
+		return err
+	}
+
+	err2 := bcrypt.CompareHashAndPassword(pwd, []byte(ps))
+	if err2 != nil {
+		return errors.New("Incorrect Password.")
+	}
+
+	return nil
+
 }

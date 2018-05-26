@@ -23,6 +23,7 @@ func Register(env *config.Environment) http.Handler {
 			// }
 
 			env.Tpl.ExecuteTemplate(w, "register.html", nil)
+			return
 
 		} else {
 			// POST
@@ -30,7 +31,7 @@ func Register(env *config.Environment) http.Handler {
 			p := req.FormValue("password")
 			xs, _ := bcrypt.GenerateFromPassword([]byte(p), bcrypt.DefaultCost)
 
-			err := env.Db.CreateUser(&models.User{un, xs, "01451022-01b5-4152-bc6e-be46f883e65c"})
+			err := env.Db.CreateUser(&models.User{un, xs, "5fb892bd-12b0-4943-aee2-3ccf49a12b99"})
 			if err != nil {
 				if strings.Contains(err.Error(), "duplicate") {
 					env.Tpl.ExecuteTemplate(w, "register.html", message{"This username is already taken; please choose another."})
@@ -38,7 +39,7 @@ func Register(env *config.Environment) http.Handler {
 				}
 
 				http.Error(w, http.StatusText(500), http.StatusInternalServerError)
-
+				return
 			}
 
 			// c := createSession(w)
@@ -47,5 +48,30 @@ func Register(env *config.Environment) http.Handler {
 			http.Redirect(w, req, "/", http.StatusSeeOther)
 		}
 	})
+}
 
+func login(env *config.Environment) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// GET
+		if req.Method == "GET" {
+			env.Tpl.ExecuteTemplate(w, "login.html", nil)
+			return
+		}
+		// POST
+		un := req.FormValue("username")
+		ps := req.FormValue("password")
+
+		err := env.Db.VerifyLogin(ps, un)
+		if err != nil {
+			if err.Error() == "Incorrect Password." {
+				env.Tpl.ExecuteTemplate(w, "login.html", message{err.Error()})
+				return
+			}
+
+			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+			return
+		}
+
+		//Create session
+	})
 }
