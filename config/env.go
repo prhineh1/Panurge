@@ -16,7 +16,7 @@ var Env *Environment
 
 func init() {
 
-	db, err := models.NewDB("postgres://postgres:wanwa1Ha@localhost/panurge?sslmode=disable")
+	db, err := models.NewDB("postgres://postgres:wanwa1Ha@localhost/panurge?sslmode=disable", false)
 	if err != nil {
 		log.Panic(err)
 	}

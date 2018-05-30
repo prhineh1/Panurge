@@ -9,6 +9,8 @@
 <form method="POST" action="/loginSubmit">
     <input type="text" placeholder="Username" name="username" required>
     <input type="password" placeholder="password" name="password" required>
+    <label for="persist">Stay Logged in?</label>
+    <input type="checkbox" name="persist" id="persist" value="true">
     <input type="submit" value="Login">
 </form>
 {{if .Error}}

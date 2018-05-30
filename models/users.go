@@ -12,16 +12,19 @@ type User struct {
 	RoleID   string
 }
 
-func (db *DB) CreateUser(user *User) error {
-	_, err := db.Exec("INSERT INTO users (id, username, password, role_id) VALUES (uuid_generate_v4(), $1, $2, $3)", user.UserName, user.Password, user.RoleID)
+func (db *DB) CreateUser(user *User) (string, error) {
+	var un string
+	row := db.sql.QueryRow(`INSERT INTO users (id, username, password, role_id) VALUES (uuid_generate_v4(), $1, $2, $3)
+							RETURNING username`, user.UserName, user.Password, user.RoleID)
+	err := row.Scan(&un)
 	if err != nil {
-		return err
+		return "", err
 	}
-	return nil
+	return un, nil
 }
 
 func (db *DB) VerifyLogin(ps, un string) error {
-	row := db.QueryRow("SELECT password FROM users WHERE username = $1", un)
+	row := db.sql.QueryRow("SELECT password FROM users WHERE username = $1", un)
 
 	var pwd []byte
 	err := row.Scan(&pwd)
