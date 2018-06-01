@@ -14,7 +14,7 @@ type User struct {
 
 func (db *DB) CreateUser(user *User) (string, error) {
 	var un string
-	row := db.sql.QueryRow(`INSERT INTO users (id, username, password, role_id) VALUES (uuid_generate_v4(), $1, $2, $3)
+	row := db.Sql.QueryRow(`INSERT INTO users (id, username, password, role_id) VALUES (uuid_generate_v4(), $1, $2, $3)
 							RETURNING username`, user.UserName, user.Password, user.RoleID)
 	err := row.Scan(&un)
 	if err != nil {
@@ -24,7 +24,7 @@ func (db *DB) CreateUser(user *User) (string, error) {
 }
 
 func (db *DB) VerifyLogin(ps, un string) error {
-	row := db.sql.QueryRow("SELECT password FROM users WHERE username = $1", un)
+	row := db.Sql.QueryRow("SELECT password FROM users WHERE username = $1", un)
 
 	var pwd []byte
 	err := row.Scan(&pwd)

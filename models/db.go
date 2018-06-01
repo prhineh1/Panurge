@@ -11,13 +11,13 @@ import (
 type Datastore interface {
 	CreateUser(user *User) (string, error)
 	VerifyLogin(ps, un string) error
-	CreateSession(un, per string) (error, *http.Cookie)
+	CreateSession(un, per string) (*http.Cookie, error)
 	VerifySession(ck *http.Cookie) (string, error)
 }
 
 type DB struct {
-	sql   *sql.DB
-	cache *pool.Pool
+	Sql   *sql.DB
+	Cache *pool.Pool
 }
 
 func NewDB(dataSourceName string, test bool) (*DB, error) {
@@ -59,10 +59,3 @@ func NewDB(dataSourceName string, test bool) (*DB, error) {
 }
 
 // Only use for test database!!
-func TearDown(db *DB) error {
-	_, err := db.sql.Exec("DELETE FROM users")
-	if err != nil {
-		return err
-	}
-	return nil
-}

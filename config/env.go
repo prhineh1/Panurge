@@ -1,10 +1,10 @@
 package config
 
 import (
+	"html/template"
 	"log"
-	"text/template"
 
-	"github.com/prhineh1/panurge/models"
+	"github.com/prhineh1/Panurge/models"
 )
 
 type Environment struct {
@@ -14,7 +14,7 @@ type Environment struct {
 
 var Env *Environment
 
-func init() {
+func SetupEnv() {
 
 	db, err := models.NewDB("postgres://postgres:wanwa1Ha@localhost/panurge?sslmode=disable", false)
 	if err != nil {

@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/prhineh1/panurge/config"
-	"github.com/prhineh1/panurge/routes"
+	"github.com/prhineh1/Panurge/config"
+	"github.com/prhineh1/Panurge/routes"
 )
 
 type error struct {
@@ -22,7 +22,7 @@ var dbSessions = map[string]session{}
 const sessionLength int = 30
 
 func main() {
-
+	config.SetupEnv()
 	http.Handle("/", routes.Register(config.Env))
 	// http.HandleFunc("/login", login)
 	// http.HandleFunc("/loginSubmit", loginSubmit)

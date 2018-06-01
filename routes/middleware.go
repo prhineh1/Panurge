@@ -8,7 +8,8 @@ func Authenticate(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		ck, err := req.Cookie("session")
 		if err != nil {
-			http.Redirect(w, req, "/login", http.StatusSeeOther)
+			req.Header.Add("Authorization", "expired/invalid")
+			next.ServeHTTP(w, req)
 			return
 		}
 
@@ -17,10 +18,11 @@ func Authenticate(next http.Handler) http.Handler {
 			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 			return
 		}
-		if r == "expired" {
+		if r == "expired/invalid" {
 			ck.MaxAge = -1
 			http.SetCookie(w, ck)
-			http.Redirect(w, req, "/login", http.StatusSeeOther)
+			req.Header.Add("Authorization", r)
+			next.ServeHTTP(w, req)
 			return
 		}
 

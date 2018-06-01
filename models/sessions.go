@@ -13,27 +13,27 @@ type Session struct {
 	Role       string
 }
 
-func (db *DB) CreateSession(un, per string) (error, *http.Cookie) {
+func (db *DB) CreateSession(un, per string) (*http.Cookie, error) {
 
-	row := db.sql.QueryRow("SELECT users.id, roles.role FROM users INNER JOIN roles ON users.role_id = roles.id WHERE username = $1", un)
+	row := db.Sql.QueryRow("SELECT users.id, roles.role FROM users INNER JOIN roles ON users.role_id = roles.id WHERE username = $1", un)
 
 	var uid string
 	var role string
 	var err error
 	err = row.Scan(&uid, &role)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 
-	conn, err := db.cache.Get()
+	conn, err := db.Cache.Get()
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
-	defer db.cache.Put(conn)
+	defer db.Cache.Put(conn)
 
 	err = conn.Cmd("HMSET", "user:"+uid, "lastActive", time.Now(), "role", role).Err
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 
 	c := &http.Cookie{
@@ -45,18 +45,18 @@ func (db *DB) CreateSession(un, per string) (error, *http.Cookie) {
 	if per != "true" {
 		err = conn.Cmd("EXPIRE", "user:"+uid, 30).Err
 		if err != nil {
-			return err, nil
+			return nil, err
 		}
 	}
 
-	return nil, c
+	return c, nil
 }
 
 func (db *DB) VerifySession(ck *http.Cookie) (string, error) {
 
-	r := db.cache.Cmd("HGET", "user:"+ck.Value, "role")
+	r := db.Cache.Cmd("HGET", "user:"+ck.Value, "role")
 	if r.IsType(redis.Nil) {
-		return "expired", nil
+		return "expired/invalid", nil
 	}
 
 	return r.Str()
