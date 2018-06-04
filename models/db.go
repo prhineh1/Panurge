@@ -11,8 +11,9 @@ import (
 type Datastore interface {
 	CreateUser(user *User) (string, error)
 	VerifyLogin(ps, un string) error
-	CreateSession(un, per string) (*http.Cookie, error)
-	VerifySession(ck *http.Cookie) (string, error)
+	CreateSession(un, per string) (*http.Cookie, string, error)
+	Authenticate(req *http.Request) bool
+	EndSession(val string) bool
 }
 
 type DB struct {
@@ -57,5 +58,3 @@ func NewDB(dataSourceName string, test bool) (*DB, error) {
 	return &DB{db, cache}, nil
 
 }
-
-// Only use for test database!!

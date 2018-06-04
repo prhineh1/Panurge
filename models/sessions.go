@@ -2,18 +2,16 @@ package models
 
 import (
 	"net/http"
-	"time"
 
-	"github.com/mediocregopher/radix.v2/redis"
+	"github.com/satori/go.uuid"
 )
 
 type Session struct {
-	ID         string
-	LastActive time.Time
-	Role       string
+	Active bool
 }
 
-func (db *DB) CreateSession(un, per string) (*http.Cookie, error) {
+// the second return is for testing purposes
+func (db *DB) CreateSession(un, per string) (*http.Cookie, string, error) {
 
 	row := db.Sql.QueryRow("SELECT users.id, roles.role FROM users INNER JOIN roles ON users.role_id = roles.id WHERE username = $1", un)
 
@@ -22,42 +20,59 @@ func (db *DB) CreateSession(un, per string) (*http.Cookie, error) {
 	var err error
 	err = row.Scan(&uid, &role)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
 	conn, err := db.Cache.Get()
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 	defer db.Cache.Put(conn)
 
-	err = conn.Cmd("HMSET", "user:"+uid, "lastActive", time.Now(), "role", role).Err
+	sid, err := uuid.NewV4()
 	if err != nil {
-		return nil, err
+		return nil, "", err
+	}
+
+	err = conn.Cmd("SET", "session:"+sid.String(), un).Err
+	if err != nil {
+		return nil, "", err
 	}
 
 	c := &http.Cookie{
 		Name:  "session",
-		Value: uid,
+		Value: sid.String(),
 	}
 
 	// timed session
 	if per != "true" {
-		err = conn.Cmd("EXPIRE", "user:"+uid, 30).Err
+		err = conn.Cmd("EXPIRE", "session:"+sid.String(), 30).Err
 		if err != nil {
-			return nil, err
+			return nil, "", err
 		}
 	}
 
-	return c, nil
+	return c, sid.String(), nil
 }
 
-func (db *DB) VerifySession(ck *http.Cookie) (string, error) {
-
-	r := db.Cache.Cmd("HGET", "user:"+ck.Value, "role")
-	if r.IsType(redis.Nil) {
-		return "expired/invalid", nil
+func (db *DB) Authenticate(req *http.Request) bool {
+	ck, _ := req.Cookie("session")
+	if ck == nil {
+		return false
 	}
 
-	return r.Str()
+	r, _ := db.Cache.Cmd("EXISTS", "session:"+ck.Value).Int()
+	if r == 0 {
+		return false
+	}
+	return true
+}
+
+func (db *DB) EndSession(val string) bool {
+
+	r, _ := db.Cache.Cmd("DEL", "session:"+val).Int()
+	if r == 0 {
+		return false
+	}
+	return true
 }

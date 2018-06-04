@@ -31,24 +31,32 @@ func (mdb *mockdb) VerifyLogin(ps, un string) error {
 	}
 }
 
-func (mdb *mockdb) CreateSession(un, per string) (*http.Cookie, error) {
+func (mdb *mockdb) CreateSession(un, per string) (*http.Cookie, string, error) {
 	if un == "createSession500" {
-		return nil, errors.New("500")
+		return nil, "", errors.New("500")
 	}
 	c := &http.Cookie{
 		Name:  "session",
 		Value: "idForCreateSession",
 	}
-	return c, nil
+	return c, "", nil
 }
 
-func (mdb *mockdb) VerifySession(ck *http.Cookie) (string, error) {
-	switch ck.Value {
+func (mdb *mockdb) Authenticate(req *http.Request) bool {
+	c, _ := req.Cookie("session")
+	switch c.Value {
 	case "success":
-		return "admin", nil
+		return true
 	case "failure":
-		return "expired/invalid", nil
+		return false
 	default:
-		return "", errors.New("500")
+		return false
 	}
+}
+
+func (mdb *mockdb) EndSession(val string) bool {
+	if val == "end" {
+		return true
+	}
+	return false
 }

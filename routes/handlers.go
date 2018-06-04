@@ -13,10 +13,24 @@ type Message struct {
 	Error string
 }
 
-var env = config.Env
+func Index(env *config.Environment) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		_, err := req.Cookie("session")
+		if err != nil {
+			env.Tpl.ExecuteTemplate(w, "index.html", nil)
+			return
+		}
+		env.Tpl.ExecuteTemplate(w, "index.html", models.Session{true})
+	})
+}
 
 func Register(env *config.Environment) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// Authenticated users are re-routed to /
+		if r := env.Db.Authenticate(req); r {
+			http.Redirect(w, req, "/", http.StatusSeeOther)
+		}
+
 		// GET
 		if req.Method == "GET" {
 			env.Tpl.ExecuteTemplate(w, "register.html", nil)
@@ -39,7 +53,7 @@ func Register(env *config.Environment) http.Handler {
 		}
 
 		//Create session
-		c, err := env.Db.CreateSession(un, "")
+		c, _, err := env.Db.CreateSession(un, "")
 		if err != nil {
 			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 			return
@@ -51,6 +65,11 @@ func Register(env *config.Environment) http.Handler {
 
 func Login(env *config.Environment) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// Authenticated users are re-routed to /
+		if r := env.Db.Authenticate(req); r {
+			http.Redirect(w, req, "/", http.StatusSeeOther)
+		}
+
 		var err error
 		// GET
 		if req.Method == "GET" {
@@ -74,7 +93,7 @@ func Login(env *config.Environment) http.Handler {
 		}
 
 		//Create session
-		c, err := env.Db.CreateSession(un, per)
+		c, _, err := env.Db.CreateSession(un, per)
 		if err != nil {
 			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 			return
@@ -82,5 +101,16 @@ func Login(env *config.Environment) http.Handler {
 
 		http.SetCookie(w, c)
 		http.Redirect(w, req, "/", http.StatusSeeOther)
+	})
+}
+
+func Logout(env *config.Environment) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		c, _ := req.Cookie("session")
+
+		env.Db.EndSession(c.Value)
+		c.MaxAge = -1
+		http.SetCookie(w, c)
+		http.Redirect(w, req, "/login", http.StatusSeeOther)
 	})
 }

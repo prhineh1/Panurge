@@ -7,13 +7,13 @@
 <body>
 
 <h2 style="text-align: center">Index</h2>
-{{if eq .Role "Admin"}}
-<h4>Only the Admin can see this</h4>
+
+{{if not .Active}}
+<a href="/login">Login</a>
 {{end}}
+
+{{if .Active}}
 <a href="/logout">Logout</a>
-<script>
-    var x = document.cookie.split(';');
-    console.log(x);
-</script>
+{{end}}
 </body>
 </html>

@@ -48,7 +48,7 @@ func setUp(db *models.DB) error {
 		return err
 	}
 
-	err = db.Cache.Cmd("HMSET", "user:4", "lastActive", "January 30, 1988", "role", "registered").Err
+	err = db.Cache.Cmd("SET", "session:active", "testuser4").Err
 	if err != nil {
 		return err
 	}
