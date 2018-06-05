@@ -151,13 +151,17 @@ func TestLogin(t *testing.T) {
 	assert.Equal(doc.String(), rec.Body.String())
 	assert.Equal(200, rec.Result().StatusCode)
 
-	// POST 500 errors
+	// POST incorrect username
+	doc.Reset()
 	rec = httptest.NewRecorder()
-	req, _ = http.NewRequest("POST", "/Login?username=loginPost&password=500&persist=false", nil)
+	req, _ = http.NewRequest("POST", "/Login?username=noUser&abc123&persist=false", nil)
 	req.AddCookie(c)
 	routes.Login(env).ServeHTTP(rec, req)
-	assert.Equal(500, rec.Result().StatusCode)
+	env.Tpl.ExecuteTemplate(&doc, "login.html", routes.Message{"Username is incorrect."})
+	assert.Equal(doc.String(), rec.Body.String())
+	assert.Equal(200, rec.Result().StatusCode)
 
+	// 500 error on CreateSession
 	rec = httptest.NewRecorder()
 	req, _ = http.NewRequest("POST", "/Login?username=createSession500&password=abc123&persist=false", nil)
 	req.AddCookie(c)

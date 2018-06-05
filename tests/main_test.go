@@ -15,7 +15,7 @@ var env *config.Environment
 
 func TestMain(m *testing.M) {
 	var err error
-	TestDB, err = models.NewDB("postgres://postgres:wanwa1Ha@localhost/testurge?sslmode=disable", true)
+	TestDB, err = models.NewDB("postgres://postgres:"+os.Getenv("POSTGRES_PS")+"@localhost/testurge?sslmode=disable", true)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -26,7 +26,7 @@ func TestMain(m *testing.M) {
 	}
 
 	tpl := template.Must(template.ParseGlob("../templates/*.html"))
-	env = &config.Environment{&mockdb{}, tpl}
+	env = &config.Environment{&mockdb{}, tpl, nil}
 
 	runTests := m.Run()
 

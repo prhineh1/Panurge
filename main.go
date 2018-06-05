@@ -1,19 +1,20 @@
 package main
 
 import (
-	"log"
 	"net/http"
 
-	"github.com/prhineh1/Panurge/config"
-	"github.com/prhineh1/Panurge/routes"
+	c "github.com/prhineh1/Panurge/config"
+	r "github.com/prhineh1/Panurge/routes"
 )
 
 func main() {
-	config.SetupEnv()
-	http.Handle("/", routes.Index(config.Env))
-	http.Handle("/login", routes.Login(config.Env))
-	http.Handle("/register", routes.Register(config.Env))
-	http.Handle("/logout", routes.Logout(config.Env))
+	c.SetupEnv()
+	http.Handle("/", r.Logger(c.Env, r.Index(c.Env)))
+	http.Handle("/login", r.Logger(c.Env, r.Login(c.Env)))
+	http.Handle("/register", r.Logger(c.Env, r.Register(c.Env)))
+	http.Handle("/logout", r.Logger(c.Env, r.Logout(c.Env)))
+	http.Handle("/favicon.ico", http.NotFoundHandler())
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	c.Env.Log.Println("Server is starting...")
+	http.ListenAndServe(":8080", nil)
 }

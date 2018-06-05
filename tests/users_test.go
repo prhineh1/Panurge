@@ -34,9 +34,9 @@ func TestVerifyLogin(t *testing.T) {
 
 	// password doesn't match
 	err = TestDB.VerifyLogin("wanwa3Ea", "testuser1")
-	assert.Equal(err.Error(), "Incorrect Password.")
+	assert.Equal("Incorrect Password.", err.Error())
 
 	// password matches
-	err = TestDB.VerifyLogin("wanwa1Ha", "testuser1")
-	assert.Error(err)
+	err = TestDB.VerifyLogin("wanwa1Ha", "tesasdfuser1")
+	assert.Equal("Username is incorrect.", err.Error())
 }

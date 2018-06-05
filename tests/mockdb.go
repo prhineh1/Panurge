@@ -21,14 +21,13 @@ func (mdb *mockdb) CreateUser(user *models.User) (string, error) {
 }
 
 func (mdb *mockdb) VerifyLogin(ps, un string) error {
-	switch ps {
-	case "incorrect":
+	if ps == "incorrect" {
 		return errors.New("Incorrect Password.")
-	case "500":
-		return errors.New("500")
-	default:
-		return nil
 	}
+	if un == "noUser" {
+		return errors.New("Username is incorrect.")
+	}
+	return nil
 }
 
 func (mdb *mockdb) CreateSession(un, per string) (*http.Cookie, string, error) {

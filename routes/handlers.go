@@ -86,10 +86,10 @@ func Login(env *config.Environment) http.Handler {
 			if err.Error() == "Incorrect Password." {
 				env.Tpl.ExecuteTemplate(w, "login.html", Message{err.Error()})
 				return
+			} else {
+				env.Tpl.ExecuteTemplate(w, "login.html", Message{err.Error()})
+				return
 			}
-
-			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
-			return
 		}
 
 		//Create session

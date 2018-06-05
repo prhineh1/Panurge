@@ -29,7 +29,7 @@ func (db *DB) VerifyLogin(ps, un string) error {
 	var pwd []byte
 	err := row.Scan(&pwd)
 	if err != nil {
-		return err
+		return errors.New("Username is incorrect.")
 	}
 
 	err2 := bcrypt.CompareHashAndPassword(pwd, []byte(ps))
