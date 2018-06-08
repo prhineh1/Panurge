@@ -4,7 +4,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/prhineh1/Panurge/models"
+	"github.com/prhineh1/panurge/models"
 	"github.com/stretchr/testify/assert"
 )
 

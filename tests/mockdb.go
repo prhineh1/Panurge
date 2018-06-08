@@ -4,7 +4,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/prhineh1/Panurge/models"
+	"github.com/prhineh1/panurge/models"
 )
 
 type mockdb struct{}

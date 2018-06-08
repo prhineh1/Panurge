@@ -3,7 +3,7 @@ package routes
 import (
 	"net/http"
 
-	"github.com/prhineh1/Panurge/config"
+	"github.com/prhineh1/panurge/config"
 )
 
 func Logger(env *config.Environment, next http.Handler) http.Handler {

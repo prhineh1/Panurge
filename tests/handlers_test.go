@@ -6,9 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/prhineh1/Panurge/models"
+	"github.com/prhineh1/panurge/models"
 
-	"github.com/prhineh1/Panurge/routes"
+	"github.com/prhineh1/panurge/routes"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -68,6 +68,16 @@ func TestRegister(t *testing.T) {
 	req.AddCookie(c)
 	env.Tpl.ExecuteTemplate(&doc, "register.html", nil)
 	routes.Register(env).ServeHTTP(rec, req)
+	assert.Equal(doc.String(), rec.Body.String())
+	assert.Equal(200, rec.Result().StatusCode)
+
+	// POST: invalid username
+	doc.Reset()
+	rec = httptest.NewRecorder()
+	req, _ = http.NewRequest("POST", "/Register?username=re%$!&password=Abc123?!&email=register@example.com", nil)
+	req.AddCookie(c)
+	routes.Register(env).ServeHTTP(rec, req)
+	env.Tpl.ExecuteTemplate(&doc, "register.html", routes.Message{"inavlid username"})
 	assert.Equal(doc.String(), rec.Body.String())
 	assert.Equal(200, rec.Result().StatusCode)
 

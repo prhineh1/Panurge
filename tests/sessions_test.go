@@ -12,10 +12,6 @@ func TestCreateSession(t *testing.T) {
 	var val int
 	var sid string
 
-	// username doesn't exist
-	_, _, err := TestDB.CreateSession("none", "")
-	assert.Error(err)
-
 	// redis key exists
 	_, sid, _ = TestDB.CreateSession("testuser1", "true")
 	val, _ = TestDB.Cache.Cmd("EXISTS", "session:"+sid).Int()

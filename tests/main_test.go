@@ -6,8 +6,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/prhineh1/Panurge/config"
-	"github.com/prhineh1/Panurge/models"
+	"github.com/prhineh1/panurge/config"
+	"github.com/prhineh1/panurge/models"
 )
 
 var TestDB *models.DB

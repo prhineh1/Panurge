@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/prhineh1/Panurge/models"
+	"github.com/prhineh1/panurge/models"
 )
 
 type Environment struct {

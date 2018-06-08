@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/prhineh1/Panurge/config"
-	"github.com/prhineh1/Panurge/models"
+	"github.com/prhineh1/panurge/config"
+	"github.com/prhineh1/panurge/models"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -84,13 +84,8 @@ func Login(env *config.Environment) http.Handler {
 
 		err = env.Db.VerifyLogin(ps, un)
 		if err != nil {
-			if err.Error() == "Incorrect Password." {
-				env.Tpl.ExecuteTemplate(w, "login.html", Message{err.Error()})
-				return
-			} else {
-				env.Tpl.ExecuteTemplate(w, "login.html", Message{err.Error()})
-				return
-			}
+			env.Tpl.ExecuteTemplate(w, "login.html", Message{err.Error()})
+			return
 		}
 
 		//Create session

@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	c "github.com/prhineh1/Panurge/config"
-	r "github.com/prhineh1/Panurge/routes"
+	c "github.com/prhineh1/panurge/config"
+	r "github.com/prhineh1/panurge/routes"
 )
 
 func main() {
