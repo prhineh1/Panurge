@@ -16,12 +16,12 @@ func TestCreateSession(t *testing.T) {
 	_, _, err := TestDB.CreateSession("none", "")
 	assert.Error(err)
 
-	// redis hashset exists
+	// redis key exists
 	_, sid, _ = TestDB.CreateSession("testuser1", "true")
 	val, _ = TestDB.Cache.Cmd("EXISTS", "session:"+sid).Int()
 	assert.Equal(val, 1)
 
-	// timeout was applied on hashset key
+	// timeout was applied on key
 	_, sid, _ = TestDB.CreateSession("testuser2", "false")
 	val, _ = TestDB.Cache.Cmd("PERSIST", "session:"+sid).Int()
 	assert.Equal(1, val)

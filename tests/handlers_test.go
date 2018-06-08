@@ -73,7 +73,7 @@ func TestRegister(t *testing.T) {
 
 	// POST: confirm cookie exists
 	rec = httptest.NewRecorder()
-	req, _ = http.NewRequest("POST", "/Register?username=registerPost&password=abc123", nil)
+	req, _ = http.NewRequest("POST", "/Register?username=registerPost&password=Abc123?!&email=register@example.com", nil)
 	req.AddCookie(c)
 	routes.Register(env).ServeHTTP(rec, req)
 	cs := rec.Result().Cookies()
@@ -83,7 +83,7 @@ func TestRegister(t *testing.T) {
 	// POST: duplicate username
 	doc.Reset()
 	rec = httptest.NewRecorder()
-	req, _ = http.NewRequest("POST", "/Register?username=testuser1&password=abc123", nil)
+	req, _ = http.NewRequest("POST", "/Register?username=testuser1&password=Abc123?!&email=register@example.com", nil)
 	req.AddCookie(c)
 	routes.Register(env).ServeHTTP(rec, req)
 	env.Tpl.ExecuteTemplate(&doc, "register.html", routes.Message{"This username is already taken; please choose another."})
@@ -91,13 +91,13 @@ func TestRegister(t *testing.T) {
 
 	// POST: 500 errors
 	rec = httptest.NewRecorder()
-	req, _ = http.NewRequest("POST", "/Register?username=createUser500&password=abc123", nil)
+	req, _ = http.NewRequest("POST", "/Register?username=createUser500&password=Abc123?!&email=register@example.com", nil)
 	req.AddCookie(c)
 	routes.Register(env).ServeHTTP(rec, req)
 	assert.Equal(500, rec.Result().StatusCode)
 
 	rec = httptest.NewRecorder()
-	req, _ = http.NewRequest("POST", "/Register?username=createSession500&password=abc123", nil)
+	req, _ = http.NewRequest("POST", "/Register?username=createSession500&password=Abc123?!&email=register@example.com", nil)
 	req.AddCookie(c)
 	routes.Register(env).ServeHTTP(rec, req)
 	assert.Equal(500, rec.Result().StatusCode)
@@ -134,7 +134,7 @@ func TestLogin(t *testing.T) {
 
 	// POST confirm cookie exists
 	rec = httptest.NewRecorder()
-	req, _ = http.NewRequest("POST", "/Login?username=loginPost&password=abc123&persist=false", nil)
+	req, _ = http.NewRequest("POST", "/Login?username=loginPost&password=Abc123?!&persist=false", nil)
 	req.AddCookie(c)
 	routes.Login(env).ServeHTTP(rec, req)
 	cs := rec.Result().Cookies()
@@ -154,7 +154,7 @@ func TestLogin(t *testing.T) {
 	// POST incorrect username
 	doc.Reset()
 	rec = httptest.NewRecorder()
-	req, _ = http.NewRequest("POST", "/Login?username=noUser&abc123&persist=false", nil)
+	req, _ = http.NewRequest("POST", "/Login?username=noUser&Abc123?!&persist=false", nil)
 	req.AddCookie(c)
 	routes.Login(env).ServeHTTP(rec, req)
 	env.Tpl.ExecuteTemplate(&doc, "login.html", routes.Message{"Username is incorrect."})
@@ -163,7 +163,7 @@ func TestLogin(t *testing.T) {
 
 	// 500 error on CreateSession
 	rec = httptest.NewRecorder()
-	req, _ = http.NewRequest("POST", "/Login?username=createSession500&password=abc123&persist=false", nil)
+	req, _ = http.NewRequest("POST", "/Login?username=createSession500&password=Abc123?!&persist=false", nil)
 	req.AddCookie(c)
 	routes.Login(env).ServeHTTP(rec, req)
 	assert.Equal(500, rec.Result().StatusCode)

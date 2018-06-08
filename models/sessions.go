@@ -13,16 +13,7 @@ type Session struct {
 // the second return is for testing purposes
 func (db *DB) CreateSession(un, per string) (*http.Cookie, string, error) {
 
-	row := db.Sql.QueryRow("SELECT users.id, roles.role FROM users INNER JOIN roles ON users.role_id = roles.id WHERE username = $1", un)
-
-	var uid string
-	var role string
 	var err error
-	err = row.Scan(&uid, &role)
-	if err != nil {
-		return nil, "", err
-	}
-
 	conn, err := db.Cache.Get()
 	if err != nil {
 		return nil, "", err

@@ -40,10 +40,10 @@ func TestMain(m *testing.M) {
 
 func setUp(db *models.DB) error {
 	var err error
-	_, err = db.Sql.Exec(`INSERT INTO users (id, username, password, role_id) VALUES
-						 ('1', 'testuser1', $1, '5fb892bd-12b0-4943-aee2-3ccf49a12b99'),
-						 ('2', 'testuser2', $2, '502b2348-bd8a-4c26-868f-7ae1f5bc5896'),
-						 ('3', 'testuser3', $3, '502b2348-bd8a-4c26-868f-7ae1f5bc5896')`, []byte("abc123"), []byte("abc123"), []byte("abc123"))
+	_, err = db.Sql.Exec(`INSERT INTO users (id, username, password, email) VALUES
+						 ('1', 'testuser1', $1, 'testuser1@mailinator.com'),
+						 ('2', 'testuser2', $2, 'testuser2@mailinator.com'),
+						 ('3', 'testuser3', $3, 'testuser3@mailinator.com')`, []byte("Abc123?!"), []byte("Abc123?!"), []byte("Abc123?!"))
 	if err != nil {
 		return err
 	}
