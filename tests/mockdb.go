@@ -31,7 +31,7 @@ func (mdb *mockdb) VerifyLogin(ps, un string) error {
 }
 
 func (mdb *mockdb) CreateSession(un, per string) (*http.Cookie, string, error) {
-	if un == "createSession500" {
+	if un == "createSess500" {
 		return nil, "", errors.New("500")
 	}
 	c := &http.Cookie{

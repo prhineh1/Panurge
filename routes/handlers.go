@@ -37,13 +37,21 @@ func Register(env *config.Environment) http.Handler {
 			return
 		}
 		// POST
+		var err error
 		un := req.FormValue("username")
 		p := req.FormValue("password")
 		em := req.FormValue("email")
 		xs, _ := bcrypt.GenerateFromPassword([]byte(p), bcrypt.DefaultCost)
+		u := &models.User{un, xs, em}
 
-		var err error
-		_, err = env.Db.CreateUser(&models.User{un, xs, em})
+		err = u.VerifySubmission()
+		if err != nil {
+			env.Tpl.ExecuteTemplate(w, "register.html", Message{err.Error()})
+			return
+		}
+
+		
+		_, err = env.Db.CreateUser(u)
 		if err != nil {
 			if strings.Contains(err.Error(), "duplicate") {
 				env.Tpl.ExecuteTemplate(w, "register.html", Message{"This username is already taken; please choose another."})

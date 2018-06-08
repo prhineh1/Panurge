@@ -8,6 +8,7 @@ import (
 
 	"github.com/prhineh1/panurge/config"
 	"github.com/prhineh1/panurge/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var TestDB *models.DB
@@ -40,10 +41,11 @@ func TestMain(m *testing.M) {
 
 func setUp(db *models.DB) error {
 	var err error
+	ps, _ := bcrypt.GenerateFromPassword([]byte("Abc123?!"), bcrypt.DefaultCost)
 	_, err = db.Sql.Exec(`INSERT INTO users (id, username, password, email) VALUES
 						 ('1', 'testuser1', $1, 'testuser1@mailinator.com'),
 						 ('2', 'testuser2', $2, 'testuser2@mailinator.com'),
-						 ('3', 'testuser3', $3, 'testuser3@mailinator.com')`, []byte("Abc123?!"), []byte("Abc123?!"), []byte("Abc123?!"))
+						 ('3', 'testuser3', $3, 'testuser3@mailinator.com')`, ps, ps, ps)
 	if err != nil {
 		return err
 	}
