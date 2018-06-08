@@ -11,10 +11,12 @@ type mockdb struct{}
 
 func (mdb *mockdb) CreateUser(user *models.User) (string, error) {
 	switch user.UserName {
-	case "testuser1":
-		return "", errors.New("duplicate username")
 	case "createUser500":
 		return "", errors.New("500")
+	case "duplicateName":
+		return "", errors.New("users_username_key")
+	case "duplicateEmail":
+		return "", errors.New("users_email_key")
 	default:
 		return "registerPost", nil
 	}
@@ -31,7 +33,7 @@ func (mdb *mockdb) VerifyLogin(ps, un string) error {
 }
 
 func (mdb *mockdb) CreateSession(un, per string) (*http.Cookie, string, error) {
-	if un == "createSession500" {
+	if un == "createSess500" {
 		return nil, "", errors.New("500")
 	}
 	c := &http.Cookie{
