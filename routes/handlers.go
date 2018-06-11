@@ -41,8 +41,7 @@ func Register(env *config.Environment) http.Handler {
 		un := req.FormValue("username")
 		p := req.FormValue("password")
 		em := req.FormValue("email")
-		xs, _ := bcrypt.GenerateFromPassword([]byte(p), bcrypt.DefaultCost)
-		u := &models.User{un, xs, em}
+		u := &models.User{un, []byte(p), em}
 
 		err = u.VerifySubmission()
 		if err != nil {
@@ -50,11 +49,15 @@ func Register(env *config.Environment) http.Handler {
 			return
 		}
 
-		
+		xs, _ := bcrypt.GenerateFromPassword([]byte(p), bcrypt.DefaultCost)
+		u.Password = xs
 		_, err = env.Db.CreateUser(u)
 		if err != nil {
-			if strings.Contains(err.Error(), "duplicate") {
-				env.Tpl.ExecuteTemplate(w, "register.html", Message{"This username is already taken; please choose another."})
+			if strings.Contains(err.Error(), "users_email_key") {
+				env.Tpl.ExecuteTemplate(w, "register.html", Message{u.Email + " is already in use"})
+				return
+			} else if strings.Contains(err.Error(), "users_username_key") {
+				env.Tpl.ExecuteTemplate(w, "register.html", Message{u.UserName + " is taken"})
 				return
 			}
 			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
@@ -79,13 +82,13 @@ func Login(env *config.Environment) http.Handler {
 			http.Redirect(w, req, "/", http.StatusSeeOther)
 		}
 
-		var err error
 		// GET
 		if req.Method == "GET" {
 			env.Tpl.ExecuteTemplate(w, "login.html", nil)
 			return
 		}
 		// POST
+		var err error
 		un := req.FormValue("username")
 		ps := req.FormValue("password")
 		per := req.FormValue("persist")

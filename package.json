@@ -1,0 +1,29 @@
+{
+  "name": "panurge",
+  "version": "1.0.0",
+  "description": "webground",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prhineh1/Go-site.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prhineh1/Go-site/issues"
+  },
+  "homepage": "https://github.com/prhineh1/Go-site#readme",
+  "devDependencies": {
+    "autoprefixer": "^8.6.1",
+    "mini-css-extract-plugin": "^0.4.0",
+    "postcss-loader": "^2.1.5",
+    "postcss-nested-import": "^0.1.0",
+    "webpack": "^4.12.0"
+  }
+}
