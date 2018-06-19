@@ -7,7 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack -d --watch --config ./config/webpack.config.js",
+    "build:dev": "webpack -d --config ./config/webpack.config.js",
+    "build:prod": "webpack -p --config ./config/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -19,11 +22,20 @@
     "url": "https://github.com/prhineh1/Go-site/issues"
   },
   "homepage": "https://github.com/prhineh1/Go-site#readme",
+  "browserslist": [
+    "> 1%"
+  ],
   "devDependencies": {
     "autoprefixer": "^8.6.1",
+    "css-loader": "^0.28.11",
+    "cssnano": "^3.10.0",
+    "cssnano-preset-advanced": "^4.0.0-rc.2",
     "mini-css-extract-plugin": "^0.4.0",
     "postcss-loader": "^2.1.5",
-    "postcss-nested-import": "^0.1.0",
-    "webpack": "^4.12.0"
+    "precss": "^3.1.2",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-hot-middleware": "^2.22.2"
   }
 }

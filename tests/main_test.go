@@ -26,7 +26,7 @@ func TestMain(m *testing.M) {
 		log.Panic(err)
 	}
 
-	tpl := template.Must(template.ParseGlob("../templates/*.html"))
+	tpl := template.Must(template.ParseGlob("../assets/templates/*.html"))
 	env = &config.Environment{&mockdb{}, tpl, nil}
 
 	runTests := m.Run()

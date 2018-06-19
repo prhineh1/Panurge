@@ -1,3 +1,4 @@
 config/private.go
 node_modules/
+dist/
 

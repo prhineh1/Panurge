@@ -21,7 +21,7 @@ func SetupEnv() {
 	if err != nil {
 		log.Panic(err)
 	}
-	tpl := template.Must(template.ParseGlob("templates/*.html"))
+	tpl := template.Must(template.ParseGlob("assets/templates/*.html"))
 	log := log.New(os.Stdout, "http: ", log.LstdFlags)
 	Env = &Environment{db, tpl, log}
 
