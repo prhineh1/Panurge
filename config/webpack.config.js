@@ -21,7 +21,10 @@ module.exports = () => {
                         }
                     } : MiniCssExtractPlugin.loader, {
                         loader: "css-loader",
-                        options: { sourceMap: true }
+                        options: { 
+                            sourceMap: true,
+                            minimize: isProd ? true || { preset: "advanced" } : false 
+                        }
                     }, {
                         loader: "postcss-loader",
                         options: {
