@@ -29,6 +29,7 @@ func Register(env *config.Environment) http.Handler {
 		// Authenticated users are re-routed to /
 		if r := env.Db.Authenticate(req); r {
 			http.Redirect(w, req, "/", http.StatusSeeOther)
+			return
 		}
 
 		// GET
@@ -43,6 +44,7 @@ func Register(env *config.Environment) http.Handler {
 		em := req.FormValue("email")
 		u := &models.User{un, []byte(p), em}
 
+		// TODO make VerifySubmission a go routine
 		err = u.VerifySubmission()
 		if err != nil {
 			env.Tpl.ExecuteTemplate(w, "register.html", Message{err.Error()})
@@ -75,11 +77,25 @@ func Register(env *config.Environment) http.Handler {
 	})
 }
 
+func Game(env *config.Environment) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// GET
+		if req.Method == "GET" && env.Db.Authenticate(req) {
+			env.Tpl.ExecuteTemplate(w, "game.html", nil)
+			return
+		}
+
+		// unauthenticated users are redirected to /login
+		http.Redirect(w, req, "/login", http.StatusSeeOther)
+	})
+}
+
 func Login(env *config.Environment) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		// Authenticated users are re-routed to /
 		if r := env.Db.Authenticate(req); r {
 			http.Redirect(w, req, "/", http.StatusSeeOther)
+			return
 		}
 
 		// GET

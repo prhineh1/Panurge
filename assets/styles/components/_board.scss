@@ -1,0 +1,4 @@
+.board {
+    flex-grow: 9;
+    @include grid-parent(8, 8, 1fr, 1fr);
+}

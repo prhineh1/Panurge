@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
     <title>Panurge</title>
+    {{template "header"}}
 </head>
 <body>
 
-<form method="POST" action="/register">
-    <input type="text" placeholder="Username" minlength="3" maxlength="15"
-           pattern="[A-Za-z0-9]" title="username must only contain alphanumeric characters"
+<form class="form" method="POST" action="/register">
+    <input type="text" placeholder="Username"
+           pattern="[a-zA-Z0-9]{3,15}" title="username must only contain alphanumeric characters"
            name="username" required
     >
-    <input type="password" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%^*?,./\\_])?.+$"
+    <input type="password" pattern="([a-zA-Z0-9!#$%^*?,./\\_]){8,}"
            placeholder="password" name="password" required
     >
     <p>use at least one uppercase letter, one numeral and 8 charcters. \n Accepted special chararcetrs: !#$%^*?,./\_</p>
@@ -21,6 +21,6 @@
 {{if .Error}}
 <p style="color:red">{{.Error}}</p>
 {{end}}
-
+{{template "footer"}}
 </body>
 </html>

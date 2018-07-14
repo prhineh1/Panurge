@@ -1,37 +1,61 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = (env) => {
     const isProd = env === 'prod';
     return {
-        entry: './assets/index.js',
+        entry: ['babel-polyfill', './assets/index.js'],
         output: {
             path: path.join(__dirname, '../dist'),
             filename: 'bundle.js'
         },
+        optimization: {
+            splitChunks: {
+              cacheGroups: {
+                commons: {
+                  test: /[\\/]node_modules[\\/]/,
+                  name: 'vendors',
+                  chunks: 'all'
+                }
+              }
+            }
+          },
         module: {
-            rules: [{
-                test: /\.p?css$/,
+            rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        minified: isProd ? true : false
+                    }
+                }
+            }, {
+                test: /\.s?css$/,
                 use: [
-                    !isProd ? {
+                    isProd ? MiniCssExtractPlugin.loader : {
                         loader: 'style-loader',
                         options: {
                             sourceMap: true,
                             convertToAbsoluteUrls: true
                         }
-                    } : MiniCssExtractPlugin.loader, {
+                    }, {
                         loader: "css-loader",
-                        options: { 
+                        options: {
                             sourceMap: true,
-                            minimize: isProd ? true || { preset: "advanced" } : false 
-                        }
+                            minimize: isProd ? true || { preset: "advanced" } : false                         }
                     }, {
                         loader: "postcss-loader",
                         options: {
                             sourceMap: true,
                             config: { path: path.resolve(__dirname, 'config', 'postcss.config.js') },
                         }
-                    }
+                    }, {
+                        loader: "sass-loader",
+                        options: { sourceMap: true }
+                    },
                 ]
             }]
         },
@@ -39,6 +63,9 @@ module.exports = (env) => {
         plugins: [
             new MiniCssExtractPlugin({
                 filename: 'bundle.css'
+            }),
+            new CleanWebpackPlugin(['dist'], {
+                root: __dirname + "/.."
             })
         ]
     }

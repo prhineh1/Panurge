@@ -1,0 +1,33 @@
+@mixin grid-parent($columns: 1, $rows: 1, $columnSize: 100%, $rowSize: 100%, $columnGap: 0px) {
+    $ColumnString: '';
+    $RowString: '';
+
+    @for $i from 0 to $columns {
+        $ColumnString: $ColumnString + $columnSize + ' ';
+    }
+    @for $i from 0 to $rows {
+        $RowString: $RowString + $rowSize + ' ';
+    }
+
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: unquote($ColumnString);
+    -ms-grid-rows: unquote($RowString);
+    grid-template-columns: unquote($ColumnString);
+    grid-template-rows: unquote($RowString);
+    grid-column-gap: $columnGap;
+}
+
+@mixin grid-children($columns: 1, $rows: 1) {
+    $counter: 1;
+
+    @for $i from 1 through $rows {
+        @for $j from 1 through $columns {
+            &:nth-child(#{$counter}) {
+                -ms-grid-column: $j;
+                -ms-grid-row: $i;
+            }
+            $counter: $counter + 1;
+        }
+    }
+}

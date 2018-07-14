@@ -1,4 +1,7 @@
 config/private.go
 node_modules/
 dist/
-
+.vscode/
+assets/tests/__snapshots__/
+main.exe
+main

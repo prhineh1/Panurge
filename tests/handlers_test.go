@@ -226,3 +226,33 @@ func TestLogout(t *testing.T) {
 	assert.Equal(303, rec.Result().StatusCode)
 	assert.Equal(-1, cs[0].MaxAge)
 }
+
+func TestGame(t *testing.T) {
+	assert := assert.New(t)
+	var c *http.Cookie
+
+	// unauthorized user
+	c = &http.Cookie{
+		Name:  "session",
+		Value: "failure",
+	}
+	rec = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/game", nil)
+	req.AddCookie(c)
+	routes.Game(env).ServeHTTP(rec, req)
+	assert.Equal(303, rec.Result().StatusCode)
+
+	// successfuly GET
+	c = &http.Cookie{
+		Name:  "session",
+		Value: "success",
+	}
+	rec = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/game", nil)
+	req.AddCookie(c)
+	routes.Game(env).ServeHTTP(rec, req)
+	doc.Reset()
+	env.Tpl.ExecuteTemplate(&doc, "game.html", nil)
+	assert.Equal(doc.String(), rec.Body.String())
+	assert.Equal(200, rec.Result().StatusCode)
+}
