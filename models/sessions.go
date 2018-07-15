@@ -20,10 +20,7 @@ func (db *DB) CreateSession(un, per string) (*http.Cookie, string, error) {
 	}
 	defer db.Cache.Put(conn)
 
-	sid, err := uuid.NewV4()
-	if err != nil {
-		return nil, "", err
-	}
+	sid := uuid.NewV4()
 
 	err = conn.Cmd("SET", "session:"+sid.String(), un).Err
 	if err != nil {

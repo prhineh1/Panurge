@@ -5,3 +5,4 @@ dist/
 assets/tests/__snapshots__/
 main.exe
 main
+vendor/

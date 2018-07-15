@@ -8,7 +8,7 @@ module.exports = (env) => {
         entry: ['babel-polyfill', './assets/index.js'],
         output: {
             path: path.join(__dirname, '../dist'),
-            filename: 'bundle.js'
+            filename: '[name].bundle.js'
         },
         optimization: {
             splitChunks: {
