@@ -9,21 +9,19 @@ import (
 
 func TestCreateSession(t *testing.T) {
 	assert := assert.New(t)
-	var val int
-	var sid string
+	conn := TestDB.Cache.Get()
+	defer conn.Close()
 
 	// redis key exists
-	_, sid, _ = TestDB.CreateSession("testuser1", "true")
-	val, _ = TestDB.Cache.Cmd("EXISTS", "session:"+sid).Int()
-	assert.Equal(val, 1)
+	ck, sid, _ := TestDB.CreateSession("testuser1", "false")
+	val, _ := conn.Do("EXISTS", "session:"+sid)
+	assert.Equal(int64(1), val)
 
 	// timeout was applied on key
-	_, sid, _ = TestDB.CreateSession("testuser2", "false")
-	val, _ = TestDB.Cache.Cmd("PERSIST", "session:"+sid).Int()
-	assert.Equal(1, val)
+	val, _ = conn.Do("PERSIST", "session:"+sid)
+	assert.Equal(int64(1), val)
 
 	// cookie was created
-	ck, sid, _ := TestDB.CreateSession("testuser3", "true")
 	c := &http.Cookie{
 		Name:  "session",
 		Value: sid,

@@ -17,7 +17,7 @@ type Environment struct {
 var Env *Environment
 
 func SetupEnv() {
-	db, err := models.NewDB("postgres://postgres:"+os.Getenv("POSTGRES_PS")+"@localhost/panurge?sslmode=disable", false)
+	db, err := models.NewDB(os.Getenv("DATABASE_URL"), os.Getenv("REDIS_URL"), false)
 	if err != nil {
 		log.Panic(err)
 	}

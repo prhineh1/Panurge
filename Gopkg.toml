@@ -24,16 +24,9 @@
 #   go-tests = true
 #   unused-packages = true
 
-[metadata.heroku]
-  root-package = "github.com/prhineh1/panurge"
-
 [[constraint]]
   branch = "master"
   name = "github.com/lib/pq"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/mediocregopher/radix.v2"
 
 [[constraint]]
   name = "github.com/satori/go.uuid"
@@ -54,3 +47,6 @@
 [[constraint]]
   name = "github.com/gomodule/redigo"
   version = "2.0.0"
+
+[metadata.heroku]
+  root-package = "github.com/prhineh1/panurge"
