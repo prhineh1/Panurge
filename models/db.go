@@ -3,9 +3,10 @@ package models
 import (
 	"database/sql"
 	"net/http"
+	"time"
 
+	"github.com/gomodule/redigo/redis"
 	_ "github.com/lib/pq"
-	"github.com/mediocregopher/radix.v2/pool"
 )
 
 type Datastore interface {
@@ -18,31 +19,13 @@ type Datastore interface {
 
 type DB struct {
 	Sql   *sql.DB
-	Cache *pool.Pool
+	Cache *redis.Pool
 }
 
-func NewDB(dataSourceName string, test bool) (*DB, error) {
+func NewDB(postgresConn, redisConn string, isTest bool) (*DB, error) {
 	var err error
 
-	if test {
-		db, err := sql.Open("postgres", dataSourceName)
-		if err != nil {
-			return nil, err
-		}
-		err = db.Ping()
-		if err != nil {
-			return nil, err
-		}
-
-		cache, err := pool.New("tcp", "localhost:3030", 10)
-		if err != nil {
-			return nil, err
-		}
-
-		return &DB{db, cache}, nil
-	}
-
-	db, err := sql.Open("postgres", dataSourceName)
+	db, err := sql.Open("postgres", postgresConn)
 	if err != nil {
 		return nil, err
 	}
@@ -50,9 +33,34 @@ func NewDB(dataSourceName string, test bool) (*DB, error) {
 		return nil, err
 	}
 
-	cache, err := pool.New("tcp", "localhost:6379", 10)
+	// Create plugins
+	_, err = db.Exec(`CREATE EXTENSION IF NOT EXISTS "pgcrypto"`)
 	if err != nil {
 		return nil, err
+	}
+
+	// create tables
+	var ty string
+	if isTest {
+		ty = "text"
+	} else {
+		ty = "uuid"
+	}
+
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS users(
+					  id ` + ty + ` PRIMARY KEY,
+					  username text NOT NULL UNIQUE,
+					  password bytea NOT NULL,
+					  email text NOT NULL UNIQUE
+					  )`)
+	if err != nil {
+		return nil, err
+	}
+
+	cache := &redis.Pool{
+		MaxIdle:     10,
+		IdleTimeout: 240 * time.Second,
+		Dial:        func() (redis.Conn, error) { return redis.DialURL(redisConn) },
 	}
 
 	return &DB{db, cache}, nil

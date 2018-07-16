@@ -15,7 +15,7 @@ type User struct {
 
 func (db *DB) CreateUser(user *User) (string, error) {
 	var un string
-	row := db.Sql.QueryRow(`INSERT INTO users (id, username, password, email) VALUES (uuid_generate_v4(), $1, $2, $3)
+	row := db.Sql.QueryRow(`INSERT INTO users (id, username, password, email) VALUES (gen_random_uuid(), $1, $2, $3)
 							RETURNING username`, user.UserName, user.Password, user.Email)
 	err := row.Scan(&un)
 	if err != nil {

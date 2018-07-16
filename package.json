@@ -10,7 +10,8 @@
     "test": "jest --config=./config/jest.config.json",
     "watch": "webpack -d --watch --config ./config/webpack.config.js",
     "build:dev": "webpack -d --config ./config/webpack.config.js",
-    "build:prod": "webpack -p --env prod --config ./config/webpack.config.js"
+    "build:prod": "webpack -p --env prod --config ./config/webpack.config.js",
+    "heroku-postbuild": "npm run build:prod"
   },
   "repository": {
     "type": "git",

@@ -3,6 +3,7 @@ package models
 import (
 	"net/http"
 
+	"github.com/gomodule/redigo/redis"
 	"github.com/satori/go.uuid"
 )
 
@@ -14,15 +15,12 @@ type Session struct {
 func (db *DB) CreateSession(un, per string) (*http.Cookie, string, error) {
 
 	var err error
-	conn, err := db.Cache.Get()
-	if err != nil {
-		return nil, "", err
-	}
-	defer db.Cache.Put(conn)
+	conn := db.Cache.Get()
+	defer conn.Close()
 
 	sid := uuid.NewV4()
 
-	err = conn.Cmd("SET", "session:"+sid.String(), un).Err
+	_, err = conn.Do("SET", "session:"+sid.String(), un)
 	if err != nil {
 		return nil, "", err
 	}
@@ -34,7 +32,7 @@ func (db *DB) CreateSession(un, per string) (*http.Cookie, string, error) {
 
 	// timed session
 	if per != "true" {
-		err = conn.Cmd("EXPIRE", "session:"+sid.String(), 30).Err
+		_, err = conn.Do("EXPIRE", "session:"+sid.String(), 30)
 		if err != nil {
 			return nil, "", err
 		}
@@ -49,7 +47,10 @@ func (db *DB) Authenticate(req *http.Request) bool {
 		return false
 	}
 
-	r, _ := db.Cache.Cmd("EXISTS", "session:"+ck.Value).Int()
+	conn := db.Cache.Get()
+	defer conn.Close()
+
+	r, _ := redis.Int(conn.Do("EXISTS", "session:"+ck.Value))
 	if r == 0 {
 		return false
 	}
@@ -58,7 +59,10 @@ func (db *DB) Authenticate(req *http.Request) bool {
 
 func (db *DB) EndSession(val string) bool {
 
-	r, _ := db.Cache.Cmd("DEL", "session:"+val).Int()
+	conn := db.Cache.Get()
+	defer conn.Close()
+
+	r, _ := redis.Int(conn.Do("DEL", "session:"+val))
 	if r == 0 {
 		return false
 	}

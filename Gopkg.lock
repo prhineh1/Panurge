@@ -8,6 +8,15 @@
   version = "v1.1.0"
 
 [[projects]]
+  name = "github.com/gomodule/redigo"
+  packages = [
+    "internal",
+    "redis"
+  ]
+  revision = "9c11da706d9b7902c6da69c592f75637793fe121"
+  version = "v2.0.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/lib/pq"
   packages = [
@@ -15,15 +24,6 @@
     "oid"
   ]
   revision = "90697d60dd844d5ef6ff15135d0203f65d2f53b8"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/mediocregopher/radix.v2"
-  packages = [
-    "pool",
-    "redis"
-  ]
-  revision = "94360be262532d465b7e4760c7a67195d3319a87"
 
 [[projects]]
   name = "github.com/pmezard/go-difflib"
@@ -55,6 +55,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "6827965c025d03f27766209a35fa913a2e328ebca71ef0d5e606fa89a7199716"
+  inputs-digest = "07b787cc4257ef10e5cc6e56ec20ddd94c839f63bbb26af9ea483da7bb8f0995"
   solver-name = "gps-cdcl"
   solver-version = 1
