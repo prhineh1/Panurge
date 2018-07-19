@@ -1,4 +1,21 @@
 .board {
-    flex-grow: 9;
+    width: 75%;
     @include grid-parent(8, 8, 1fr, 1fr);
+
+    > div {
+        @include grid-children(4, 8);
+        border: 1px solid rgb(21, 24, 66);
+    }
+
+    > div:nth-child(2n) {
+        background-color: $brown
+    }
+
+    > div:nth-child(2n+1) {
+        background-color: $cream
+    }
+
+    .piece {
+        width: 100%;
+    }
 }

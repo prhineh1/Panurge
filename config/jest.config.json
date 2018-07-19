@@ -1,5 +1,8 @@
 {
     "roots": ["<rootDir>/../assets/tests"],
     "setupFiles": ["raf/polyfill", "<rootDir>/../assets/tests/setupTests.js"],
-    "snapshotSerializers": ["enzyme-to-json/serializer"]
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "moduleNameMapper": {
+        "\\.(jpg|jpeg|png|svg)$": "<rootDir>/../assets/tests/__mocks__/fileMock.js"
+    }
 }
