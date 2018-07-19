@@ -19,11 +19,18 @@ export default class Game extends React.Component {
                     ]
     };
     concede = () => this.setState((prevState) => ({ black: { ...prevState.black, concede: true } }));
+    selected = (boardState) => undefined;
     render() {
         return (
             <div className="game-wrapper">
-                <Board turn={this.state.blacksTurn ? 'black' : 'red'} boardState={this.state.boardState} />
-                <OptionsPanel concede={this.concede} players={{ red: this.state.red, black: this.state.black }} />
+                <Board turn={this.state.blacksTurn ? 'black' : 'red'}
+                    boardState={this.state.boardState}
+                    selected={this.selected}
+                />
+                <OptionsPanel concede={this.concede}
+                    turn={this.state.blacksTurn ? 'black' : 'red'}
+                    players={{ red: this.state.red, black: this.state.black }}
+                />
             </div>
         )
     }

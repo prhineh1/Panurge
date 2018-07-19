@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render a black piece 1`] = `
+<div>
+  <img
+    alt="black checker piece"
+    className="piece"
+    src="test-file-stub"
+  />
+</div>
+`;
+
+exports[`should render a blank space 1`] = `<div />`;
+
+exports[`should render a red piece 1`] = `
+<div>
+  <img
+    alt="red checker piece"
+    className="piece"
+    src="test-file-stub"
+  />
+</div>
+`;

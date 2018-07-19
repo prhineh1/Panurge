@@ -1,0 +1,648 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Board with initState 1`] = `
+<div
+  className="board"
+>
+  <Position
+    content={1}
+    coord={
+      Array [
+        0,
+        0,
+      ]
+    }
+    key="0"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        0,
+        1,
+      ]
+    }
+    key="1"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        0,
+        2,
+      ]
+    }
+    key="2"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        0,
+        3,
+      ]
+    }
+    key="3"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        0,
+        4,
+      ]
+    }
+    key="4"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        0,
+        5,
+      ]
+    }
+    key="5"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        0,
+        6,
+      ]
+    }
+    key="6"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        0,
+        7,
+      ]
+    }
+    key="7"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        1,
+        0,
+      ]
+    }
+    key="0"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        1,
+        1,
+      ]
+    }
+    key="1"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        1,
+        2,
+      ]
+    }
+    key="2"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        1,
+        3,
+      ]
+    }
+    key="3"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        1,
+        4,
+      ]
+    }
+    key="4"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        1,
+        5,
+      ]
+    }
+    key="5"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        1,
+        6,
+      ]
+    }
+    key="6"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        1,
+        7,
+      ]
+    }
+    key="7"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        2,
+        0,
+      ]
+    }
+    key="0"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        2,
+        1,
+      ]
+    }
+    key="1"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        2,
+        2,
+      ]
+    }
+    key="2"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        2,
+        3,
+      ]
+    }
+    key="3"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        2,
+        4,
+      ]
+    }
+    key="4"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        2,
+        5,
+      ]
+    }
+    key="5"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        2,
+        6,
+      ]
+    }
+    key="6"
+  />
+  <Position
+    content="r"
+    coord={
+      Array [
+        2,
+        7,
+      ]
+    }
+    key="7"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        3,
+        0,
+      ]
+    }
+    key="0"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        3,
+        1,
+      ]
+    }
+    key="1"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        3,
+        2,
+      ]
+    }
+    key="2"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        3,
+        3,
+      ]
+    }
+    key="3"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        3,
+        4,
+      ]
+    }
+    key="4"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        3,
+        5,
+      ]
+    }
+    key="5"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        3,
+        6,
+      ]
+    }
+    key="6"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        3,
+        7,
+      ]
+    }
+    key="7"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        4,
+        0,
+      ]
+    }
+    key="0"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        4,
+        1,
+      ]
+    }
+    key="1"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        4,
+        2,
+      ]
+    }
+    key="2"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        4,
+        3,
+      ]
+    }
+    key="3"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        4,
+        4,
+      ]
+    }
+    key="4"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        4,
+        5,
+      ]
+    }
+    key="5"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        4,
+        6,
+      ]
+    }
+    key="6"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        4,
+        7,
+      ]
+    }
+    key="7"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        5,
+        0,
+      ]
+    }
+    key="0"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        5,
+        1,
+      ]
+    }
+    key="1"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        5,
+        2,
+      ]
+    }
+    key="2"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        5,
+        3,
+      ]
+    }
+    key="3"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        5,
+        4,
+      ]
+    }
+    key="4"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        5,
+        5,
+      ]
+    }
+    key="5"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        5,
+        6,
+      ]
+    }
+    key="6"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        5,
+        7,
+      ]
+    }
+    key="7"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        6,
+        0,
+      ]
+    }
+    key="0"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        6,
+        1,
+      ]
+    }
+    key="1"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        6,
+        2,
+      ]
+    }
+    key="2"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        6,
+        3,
+      ]
+    }
+    key="3"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        6,
+        4,
+      ]
+    }
+    key="4"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        6,
+        5,
+      ]
+    }
+    key="5"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        6,
+        6,
+      ]
+    }
+    key="6"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        6,
+        7,
+      ]
+    }
+    key="7"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        7,
+        0,
+      ]
+    }
+    key="0"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        7,
+        1,
+      ]
+    }
+    key="1"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        7,
+        2,
+      ]
+    }
+    key="2"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        7,
+        3,
+      ]
+    }
+    key="3"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        7,
+        4,
+      ]
+    }
+    key="4"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        7,
+        5,
+      ]
+    }
+    key="5"
+  />
+  <Position
+    content="b"
+    coord={
+      Array [
+        7,
+        6,
+      ]
+    }
+    key="6"
+  />
+  <Position
+    content={1}
+    coord={
+      Array [
+        7,
+        7,
+      ]
+    }
+    key="7"
+  />
+</div>
+`;

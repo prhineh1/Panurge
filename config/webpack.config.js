@@ -57,6 +57,17 @@ module.exports = (env) => {
                         options: { sourceMap: true }
                     },
                 ]
+            }, {
+                test: /\.(png|jpe?g|svg)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                            name: '[name].[ext]'
+                        }
+                    }
+                ]
             }]
         },
         devtool: isProd ? 'source-map' : 'inline-source-map',

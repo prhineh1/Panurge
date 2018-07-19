@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render OptionsPanel with black win 1`] = `
+<div
+  className="optionsPanel"
+>
+  <div>
+    Black Wins
+  </div>
+  <button
+    onClick={[MockFunction]}
+  >
+    Concede
+  </button>
+  <div>
+    's turn
+  </div>
+</div>
+`;
+
+exports[`should render OptionsPanel with initState 1`] = `
+<div
+  className="optionsPanel"
+>
+  <button
+    onClick={[MockFunction]}
+  >
+    Concede
+  </button>
+  <div>
+    black
+    's turn
+  </div>
+</div>
+`;
+
+exports[`should render OptionsPanel with red win 1`] = `
+<div
+  className="optionsPanel"
+>
+  <div>
+    Red Wins
+  </div>
+  <button
+    onClick={[MockFunction]}
+  >
+    Concede
+  </button>
+  <div>
+    's turn
+  </div>
+</div>
+`;
