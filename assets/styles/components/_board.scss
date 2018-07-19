@@ -17,5 +17,10 @@
 
     .piece {
         width: 100%;
+        cursor: default;
+
+        &[onclick] {
+            cursor: pointer;
+        }
     }
 }

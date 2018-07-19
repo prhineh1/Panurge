@@ -1,17 +1,26 @@
 import React from 'react';
-import Board from '../components/Board';
+import Board from '../../components/Board';
 import { shallow } from 'enzyme';
-import { initState } from './fixtures/fixtures';
+import { initState } from '../fixtures/fixtures';
 
-let wrapper, boardState, turn
+let wrapper, selected
+selected = jest.fn();
 
-beforeEach(() => {
+test("should render Board with initState", () => {
     wrapper = shallow(<Board
         boardState={initState.boardState}
         turn={'black'}
+        selected={selected}
     />);
-});
-
-test("should render Board with initState", () => {
     expect(wrapper).toMatchSnapshot();
 });
+
+//TODO: write tests for 'selected' cases
+test("should render Board on red's turn", () => {
+    wrapper = shallow(<Board
+        boardState={initState.boardState}
+        turn={'red'}
+        selected={selected}
+    />);
+    expect(wrapper).toMatchSnapshot();
+})

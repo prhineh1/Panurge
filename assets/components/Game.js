@@ -19,7 +19,7 @@ export default class Game extends React.Component {
                     ]
     };
     concede = () => this.setState((prevState) => ({ black: { ...prevState.black, concede: true } }));
-    selected = (boardState) => undefined;
+    selected = () => undefined;
     render() {
         return (
             <div className="game-wrapper">

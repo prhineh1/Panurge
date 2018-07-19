@@ -2,7 +2,7 @@ config/private.go
 node_modules/
 dist/
 .vscode/
-assets/tests/__snapshots__/
+assets/tests/components/__snapshots__/*
 panurge.*
 vendor/
 .env

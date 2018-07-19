@@ -1,7 +1,7 @@
 import React from 'react';
-import OptionsPanel from '../components/OptionsPanel';
+import OptionsPanel from '../../components/OptionsPanel';
 import { shallow } from 'enzyme';
-import { initState } from './fixtures/fixtures';
+import { initState } from '../fixtures/fixtures';
 
 let concede, wrapper, playerState;
 

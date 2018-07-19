@@ -1,5 +1,5 @@
 import React from 'react';
-import Position from '../components/Position';
+import Position from '../../components/Position';
 import { shallow } from 'enzyme';
 
 test("should render a blank space", () => {
