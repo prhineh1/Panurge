@@ -8,11 +8,20 @@ test("should render a blank space", () => {
 });
 
 test("should render a red piece", () => {
-    let wrapper = shallow(<Position coords={[0,0]} content={'r'} />);
+    let selected = jest.fn();
+    let wrapper = shallow(<Position coord={[0,0]} content={'r'} selected={selected} />);
     expect(wrapper).toMatchSnapshot();
 });
 
 test("should render a black piece", () => {
-    let wrapper = shallow(<Position coords={[0,0]} content={'b'} />);
+    let selected = jest.fn();
+    let wrapper = shallow(<Position coord={[0,0]} content={'b'} selected={selected} />);
     expect(wrapper).toMatchSnapshot();
+});
+
+test("should call 'selected' prop", () => {
+    let selected = jest.fn();
+    let wrapper = shallow(<Position coord={[0,0]} content={'r'} selected={selected} />);
+    wrapper.find('img').simulate('click');
+    expect(selected).toHaveBeenCalledWith([0,0], 'r');
 });

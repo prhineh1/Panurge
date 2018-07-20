@@ -15,7 +15,6 @@ test("should render Board with initState", () => {
     expect(wrapper).toMatchSnapshot();
 });
 
-//TODO: write tests for 'selected' cases
 test("should render Board on red's turn", () => {
     wrapper = shallow(<Board
         boardState={initState.boardState}

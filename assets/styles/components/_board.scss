@@ -21,6 +21,10 @@
 
         &[onclick] {
             cursor: pointer;
+
+            &:focus {
+                border: 1px solid blue;
+            }
         }
     }
 }
