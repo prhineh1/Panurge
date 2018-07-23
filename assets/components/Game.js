@@ -1,12 +1,14 @@
 import React from 'react';
 import Board from './Board';
 import OptionsPanel from './OptionsPanel';
+import { movable } from '../gameLogic/general';
 
 export default class Game extends React.Component {
     state = {
         red: { concede: false, lost: 0},
         black: { concede: false, lost: 0},
         blacksTurn: true,
+        toMoveTo: [], 
         boardState: [
                         [1, 'r', 1, 'r', 1, 'r', 1, 'r'],
                         ['r', 1, 'r', 1, 'r', 1, 'r', 1],
@@ -19,13 +21,14 @@ export default class Game extends React.Component {
                     ]
     };
     concede = () => this.setState((prevState) => ({ black: { ...prevState.black, concede: true } }));
-    selected = () => undefined;
+    selected = (coord, content) => this.setState(() => ({ toMoveTo : movable(this.boardState, coord, content) }));
     render() {
         return (
             <div className="game-wrapper">
                 <Board turn={this.state.blacksTurn ? 'black' : 'red'}
                     boardState={this.state.boardState}
                     selected={this.selected}
+                    toMoveTo={this.toMoveTo}
                 />
                 <OptionsPanel concede={this.concede}
                     turn={this.state.blacksTurn ? 'black' : 'red'}

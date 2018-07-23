@@ -16,3 +16,11 @@ test('should call "concede" method', () => {
     wrapper.instance().concede();
     expect(wrapper.state('black')).toEqual({ concede: true, lost: 0});
 });
+
+test('selected method should modify toMoveTo state', () => {
+    let instance = wrapper.instance();
+    jest.spyOn(instance, 'selected').mockImplementation(() => instance.setState(() => ({ toMoveTo: [4,3] })));
+    expect(wrapper.state('toMoveTo')).toEqual([]);
+    instance.selected();
+    expect(wrapper.state('toMoveTo')).toEqual([4,3]);
+});
