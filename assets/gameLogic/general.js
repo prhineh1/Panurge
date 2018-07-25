@@ -8,7 +8,7 @@ export const movable = (boardState, coord, color) => {
 
     if (color === 'r') {
        if (boardState[coord[0]+1] === undefined) {
-           return [];
+           return [[]];
        }
 
        const redMoveRight = boardState[coord[0]+1][coord[1]+1];
@@ -18,17 +18,17 @@ export const movable = (boardState, coord, color) => {
                 return [[coord[0]+1, coord[1]+1], [coord[0]+1, coord[1]-1]];
             }
        if (redMoveRight === 1) {
-           return [coord[0]+1, coord[1]+1]
+           return [[coord[0]+1, coord[1]+1]]
        }
 
        if (redMoveLeft === 1) {
-        return [coord[0]+1, coord[1]-1];
+        return [[coord[0]+1, coord[1]-1]];
        }
 
-       return [];
-    } 
+       return [[]];
+    }
     if (boardState[coord[0]-1] === undefined) {
-        return [];
+        return[[]];
     }
 
     const blackMoveRight = boardState[coord[0]-1][coord[1]+1];
@@ -37,11 +37,11 @@ export const movable = (boardState, coord, color) => {
         return [[coord[0]-1, coord[1]+1], [coord[0]-1, coord[1]-1]];
     }
     if (blackMoveRight === 1) {
-        return [coord[0]-1, coord[1]+1];
+        return [[coord[0]-1, coord[1]+1]];
     }
     if (blackMoveLeft === 1) {
-        return [coord[0]-1, coord[1]-1];
+        return [[coord[0]-1, coord[1]-1]];
     }
 
-    return []
+    return [[]];
 };

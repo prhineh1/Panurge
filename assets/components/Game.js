@@ -8,7 +8,8 @@ export default class Game extends React.Component {
         red: { concede: false, lost: 0},
         black: { concede: false, lost: 0},
         blacksTurn: true,
-        toMoveTo: [], 
+        toMoveTo: [[]],
+        selectedPiece: [],
         boardState: [
                         [1, 'r', 1, 'r', 1, 'r', 1, 'r'],
                         ['r', 1, 'r', 1, 'r', 1, 'r', 1],
@@ -21,7 +22,7 @@ export default class Game extends React.Component {
                     ]
     };
     concede = () => this.setState((prevState) => ({ black: { ...prevState.black, concede: true } }));
-    selected = (coord, content) => this.setState(() => ({ toMoveTo : movable(this.boardState, coord, content) }));
+    selected = (coord, content) => this.setState(() => ({ toMoveTo : movable(this.boardState, coord, content), selected: coord }));
     render() {
         return (
             <div className="game-wrapper">
