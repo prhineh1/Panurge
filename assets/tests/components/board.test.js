@@ -11,6 +11,7 @@ test("should render Board with initState", () => {
         boardState={initState.boardState}
         turn={'black'}
         selected={selected}
+        toMoveto={[[4,1]]}
     />);
     expect(wrapper).toMatchSnapshot();
 });
@@ -20,6 +21,7 @@ test("should render Board on red's turn", () => {
         boardState={initState.boardState}
         turn={'red'}
         selected={selected}
+        toMoveto={[[3,6]]}
     />);
     expect(wrapper).toMatchSnapshot();
-})
+});
