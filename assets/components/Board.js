@@ -1,7 +1,7 @@
 import React from 'react';
 import Position from './Position';
 
-const Game = (props) => 
+const Board = (props) =>
     <div className="board">
         {props.boardState.map((rank, rankIndex) =>
             rank.map((content, fileIndex) => {
@@ -36,4 +36,4 @@ const Game = (props) =>
         )}
     </div>
 
-export default Game;
+export default Board;
