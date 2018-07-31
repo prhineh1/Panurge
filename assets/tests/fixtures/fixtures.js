@@ -2,7 +2,7 @@ export const initState = {
     red: { concede: false, lost: 0},
     black: { concede: false, lost: 0},
     blacksTurn: true,
-    toMoveto: [[4,5]],
+    canMoveTo: [[4,5]],
     selectedPiece: [5,4],
     boardState: [
                     [1, 'r', 1, 'r', 1, 'r', 1, 'r'],

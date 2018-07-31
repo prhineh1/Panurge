@@ -3,7 +3,7 @@ import Position from '../../components/Position';
 import { shallow } from 'enzyme';
 
 test("should render a blank space", () => {
-    let wrapper = shallow(<Position coords={[0,0]} content={1} />);
+    let wrapper = shallow(<Position coord={[0,0]} content={1} />);
     expect(wrapper).toMatchSnapshot();
 });
 
@@ -24,4 +24,18 @@ test("should call 'selected' prop", () => {
     let wrapper = shallow(<Position coord={[0,0]} content={'r'} selected={selected} />);
     wrapper.find('img').simulate('click');
     expect(selected).toHaveBeenCalledWith([0,0], 'r');
+});
+
+test("should call 'selected' prop", () => {
+    let selected = jest.fn();
+    let wrapper = shallow(<Position coord={[0,0]} content={'r'} selected={selected} />);
+    wrapper.find('img').simulate('click');
+    expect(selected).toHaveBeenCalledWith([0,0], 'r');
+});
+
+test("should call 'move' prop", () => {
+    let move = jest.fn();
+    let wrapper = shallow(<Position coord={[0,0]} content={1} move={move} />);
+    wrapper.find('div').simulate('click');
+    expect(move).toHaveBeenCalledWith([0,0]);
 });

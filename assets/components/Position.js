@@ -4,7 +4,7 @@ import blackChecker from '../imgs/black_checker.svg';
 
 const Position = (props) =>
     props.content === 1 ? (
-        <div></div>
+        <div onClick={!!props.move && props.move(props.coord)}></div>
     ) : (
         <div>
             <img className="piece"
