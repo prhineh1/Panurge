@@ -1,6 +1,7 @@
 import React from 'react';
 import Game from '../../components/Game';
 import { shallow } from 'enzyme';
+import { moveTest } from '../fixtures/fixtures';
 
 let wrapper;
 
@@ -25,4 +26,14 @@ test('selected method should modify canMoveTo state', () => {
     instance.selected();
     expect(wrapper.state('canMoveTo')).toEqual([[4,3]]);
     expect(wrapper.state('selectedPiece')).toEqual([5,2]);
+});
+
+test('move should have been properly called', () => {
+    let instance = wrapper.instance();
+    instance.setState(() => ({ selectedPiece: [5,4], canMoveTo: [[4,5], [4,3]] }));
+    instance.move([4,5]);
+    expect(wrapper.state('canMoveTo')).toEqual([[]]);
+    expect(wrapper.state('blacksTurn')).toEqual(false);
+    expect(wrapper.state('selectedPiece')).toEqual([]);
+    expect(wrapper.state('boardState')).toEqual(moveTest);
 });

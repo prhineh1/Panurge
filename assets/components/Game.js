@@ -22,7 +22,21 @@ export default class Game extends React.Component {
                     ]
     };
     concede = () => this.setState((prevState) => ({ black: { ...prevState.black, concede: true } }));
-    selected = (coord, content) => this.setState(() => ({ canMoveTo : movable(this.boardState, coord, content), selected: coord }));
+    selected = (coord, content) => this.setState(() => ({ canMoveTo : movable(this.boardState, coord, content), selectedPiece: coord }));
+    move = (toCoord) => this.setState((prevState) => { 
+        let newBoardState, swapOld, swapNew;
+        newBoardState = [...prevState.boardState];
+        swapOld = newBoardState[this.state.selectedPiece[0]][this.state.selectedPiece[1]];
+        swapNew = newBoardState[toCoord[0]][toCoord[1]];
+        newBoardState[toCoord[0]][toCoord[1]] = swapOld;
+        newBoardState[this.state.selectedPiece[0]][this.state.selectedPiece[1]] = swapNew;
+        return {
+            boardState: newBoardState, 
+            canMoveTo: [[]], 
+            blacksTurn: !prevState.blacksTurn, 
+            selectedPiece: []
+        };
+    });
     render() {
         return (
             <div className="game-wrapper">

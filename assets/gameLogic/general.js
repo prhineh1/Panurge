@@ -33,6 +33,7 @@ export const movable = (boardState, coord, color) => {
 
     const blackMoveRight = boardState[coord[0]-1][coord[1]+1];
     const blackMoveLeft = boardState[coord[0]-1][coord[1]-1];
+
     if (blackMoveRight === 1 && blackMoveLeft === 1) {
         return [[coord[0]-1, coord[1]+1], [coord[0]-1, coord[1]-1]];
     }
