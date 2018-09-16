@@ -12,7 +12,7 @@ test("should render Board with initState", () => {
         boardState={initState.boardState}
         turn={'black'}
         selected={selected}
-        canMoveTo={[[4,1]]}
+        canMoveTo={[[]]}
         move={move}
     />);
     expect(wrapper).toMatchSnapshot();

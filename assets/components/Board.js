@@ -19,6 +19,7 @@ const Board = (props) =>
                     <Position key={fileIndex}
                         coord={[rankIndex, fileIndex]}
                         content={content}
+                        selected={undefined}
                         move={props.canMoveTo
                             .reduce((acc, cur) => acc.concat(cur), [])
                             .filter((coord, index, coordList) => {
@@ -29,7 +30,7 @@ const Board = (props) =>
                                     return coordList[index-1] === rankIndex && coordList[index] === fileIndex
                                 }
                             })
-                            .length > 0 && props.move
+                            .length > 0 ? props.move : undefined
                         }
                     />
                 )
