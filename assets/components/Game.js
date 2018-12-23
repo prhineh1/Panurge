@@ -22,7 +22,7 @@ export default class Game extends React.Component {
                     ]
     };
     concede = () => this.setState((prevState) => ({ black: { ...prevState.black, concede: true } }));
-    selected = (coord, content) => this.setState(() => ({ canMoveTo : movable(this.boardState, coord, content), selectedPiece: coord }));
+    selected = (coord, content) => this.setState(() => ({ canMoveTo : movable(this.state.boardState, coord, content), selectedPiece: coord }));
     move = (toCoord) => this.setState((prevState) => { 
         let newBoardState, swapOld, swapNew;
         newBoardState = [...prevState.boardState];
@@ -43,7 +43,8 @@ export default class Game extends React.Component {
                 <Board turn={this.state.blacksTurn ? 'black' : 'red'}
                     boardState={this.state.boardState}
                     selected={this.selected}
-                    canMoveTo={this.canMoveTo}
+                    canMoveTo={this.state.canMoveTo}
+                    move={this.move}
                 />
                 <OptionsPanel concede={this.concede}
                     turn={this.state.blacksTurn ? 'black' : 'red'}
