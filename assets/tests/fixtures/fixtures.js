@@ -1,6 +1,6 @@
 export const initState = {
-    red: { concede: false, lost: 0},
-    black: { concede: false, lost: 0},
+    red: { concede: false, lost: 12},
+    black: { concede: false, lost: 12},
     blacksTurn: true,
     canMoveTo: [[4,5], [4,3]],
     selectedPiece: [5,4],
