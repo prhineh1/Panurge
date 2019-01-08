@@ -45,12 +45,12 @@
     "postcss-scss": "^1.0.6",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "sass": "^1.15.2",
+    "sass": "^1.15.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
     "url-loader": "^1.1.2",
-    "webpack": "^4.28.2",
-    "webpack-cli": "^3.1.2"
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.1"
   },
   "devDependencies": {
     "enzyme": "^3.8.0",

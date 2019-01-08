@@ -26,13 +26,6 @@ test("should call 'selected' prop", () => {
     expect(selected).toHaveBeenCalledWith([0,0], 'r');
 });
 
-test("should call 'selected' prop", () => {
-    let selected = jest.fn();
-    let wrapper = shallow(<Position coord={[0,0]} content={'r'} selected={selected} />);
-    wrapper.find('img').simulate('click');
-    expect(selected).toHaveBeenCalledWith([0,0], 'r');
-});
-
 test("should call 'move' prop", () => {
     let move = jest.fn();
     let wrapper = shallow(<Position coord={[0,0]} content={1} move={move} />);
