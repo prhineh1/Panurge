@@ -5,8 +5,8 @@ import { movable } from '../gameLogic/general';
 
 export default class Game extends React.Component {
     state = {
-        red: { concede: false, lost: 0},
-        black: { concede: false, lost: 0},
+        red: { concede: false, lost: 12},
+        black: { concede: false, lost: 12},
         blacksTurn: true,
         canMoveTo: [[]],
         selectedPiece: [],
@@ -23,7 +23,7 @@ export default class Game extends React.Component {
     };
     concede = () => this.setState((prevState) => ({ black: { ...prevState.black, concede: true } }));
     selected = (coord, content) => this.setState(() => ({ canMoveTo : movable(this.state.boardState, coord, content), selectedPiece: coord }));
-    move = (toCoord) => this.setState((prevState) => { 
+    move = (toCoord) => this.setState((prevState) => {
         let newBoardState, swapOld, swapNew;
         newBoardState = [...prevState.boardState];
         swapOld = newBoardState[this.state.selectedPiece[0]][this.state.selectedPiece[1]];
@@ -31,9 +31,9 @@ export default class Game extends React.Component {
         newBoardState[toCoord[0]][toCoord[1]] = swapOld;
         newBoardState[this.state.selectedPiece[0]][this.state.selectedPiece[1]] = swapNew;
         return {
-            boardState: newBoardState, 
-            canMoveTo: [[]], 
-            blacksTurn: !prevState.blacksTurn, 
+            boardState: newBoardState,
+            canMoveTo: [[]],
+            blacksTurn: !prevState.blacksTurn,
             selectedPiece: []
         };
     });

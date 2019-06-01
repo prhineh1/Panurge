@@ -15,7 +15,7 @@ test('should render Game', () => {
 
 test('should call "concede" method', () => {
     wrapper.instance().concede();
-    expect(wrapper.state('black')).toEqual({ concede: true, lost: 0});
+    expect(wrapper.state('black')).toEqual({ concede: true, lost: 12});
 });
 
 test('selected method should modify canMoveTo state', () => {
