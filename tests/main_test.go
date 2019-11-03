@@ -16,13 +16,8 @@ var env *config.Environment
 
 func TestMain(m *testing.M) {
 	var err error
-<<<<<<< HEAD
 	TestDB, err = models.NewDB("postgres://gkrucblczymycm:e5ceda4bdb86327d66be10e1657cec7fce7bbd2db8ed67dd948456aedd678c9b@ec2-75-101-147-226.compute-1.amazonaws.com:5432/d5k3jr85bgf4fq",
-		"redis://h:p82901be92bb76cd4025436f9f2b49d803babbfbbcf1b88cd71e932412ae856cd@ec2-3-217-247-2.compute-1.amazonaws.com:27709",
-=======
-	TestDB, err = models.NewDB("postgres://bjxthdnmfuifuv:ecc6e5c32e42e0c68b9c811a42cbaa8c6964a022ba545f7b62296d04835d5692@ec2-54-227-240-7.compute-1.amazonaws.com:5432/d5li4mppkf5a3v",
-		"redis://h:p13392994190fa644b8f70950102c3e6280d71bcb027a4eb38bedf44dc4d25191@ec2-54-158-35-36.compute-1.amazonaws.com:7859",
->>>>>>> 77b21a1c6af1b137d6d82551e3c368f5063fa317
+		"redis://h:p82901be92bb76cd4025436f9f2b49d803babbfbbcf1b88cd71e932412ae856cd@ec2-3-232-190-188.compute-1.amazonaws.com:17679",
 		true)
 	if err != nil {
 		log.Panic(err)
