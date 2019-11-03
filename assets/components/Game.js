@@ -1,28 +1,16 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import Board from './Board';
 import OptionsPanel from './OptionsPanel';
 import { movable } from '../gameLogic/general';
+import initialState from '../state/state';
+import reducer from '../state/reducer';
+import { concede } from '../state/actions';
 
-export default class Game extends React.Component {
-    state = {
-        red: { concede: false, lost: 12},
-        black: { concede: false, lost: 12},
-        blacksTurn: true,
-        canMoveTo: [[]],
-        selectedPiece: [],
-        boardState: [
-                        [1, 'r', 1, 'r', 1, 'r', 1, 'r'],
-                        ['r', 1, 'r', 1, 'r', 1, 'r', 1],
-                        [1, 'r', 1, 'r', 1, 'r', 1, 'r'],
-                        [1, 1, 1, 1, 1, 1, 1, 1],
-                        [1, 1, 1, 1, 1, 1, 1, 1],
-                        ['b', 1, 'b', 1, 'b', 1, 'b', 1],
-                        [1, 'b', 1, 'b', 1, 'b', 1, 'b'],
-                        ['b', 1, 'b', 1, 'b', 1, 'b', 1]
-                    ]
-    };
-    concede = () => this.setState((prevState) => ({ black: { ...prevState.black, concede: true } }));
+const Game = () => {
+    const [state, dispatch] = useReducer(reducer, initialState);
+
     selected = (coord, content) => this.setState(() => ({ canMoveTo : movable(this.state.boardState, coord, content), selectedPiece: coord }));
+
     move = (toCoord) => this.setState((prevState) => {
         let newBoardState, swapOld, swapNew;
         newBoardState = [...prevState.boardState];
@@ -37,20 +25,22 @@ export default class Game extends React.Component {
             selectedPiece: []
         };
     });
-    render() {
-        return (
-            <div className="game-wrapper">
-                <Board turn={this.state.blacksTurn ? 'black' : 'red'}
-                    boardState={this.state.boardState}
-                    selected={this.selected}
-                    canMoveTo={this.state.canMoveTo}
-                    move={this.move}
-                />
-                <OptionsPanel concede={this.concede}
-                    turn={this.state.blacksTurn ? 'black' : 'red'}
-                    players={{ red: this.state.red, black: this.state.black }}
-                />
-            </div>
-        )
-    }
+
+    return (
+        <div className="game-wrapper">
+            <Board 
+                turn={this.state.blacksTurn ? 'black' : 'red'}
+                boardState={this.state.boardState}
+                selected={this.selected}
+                canMoveTo={this.state.canMoveTo}
+                move={this.move}
+            />
+            <OptionsPanel concede={(activePlayer) => dispatch(concede(activePlayer))}
+                turn={state.blacksTurn ? 'black' : 'red'}
+                players={{ red: state.red, black: state.black }}
+            />
+        </div>
+    )
 }
+
+export default Game;
