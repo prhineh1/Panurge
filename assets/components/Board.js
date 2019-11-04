@@ -5,7 +5,7 @@ const Board = (props) =>
     <div className="board">
         {props.boardState.map((rank, rankIndex) =>
             rank.map((content, fileIndex) => {
-                let cases =
+                const cases =
                     (props.turn === 'black' && content === 'b') ||
                     (props.turn === 'red' && content === 'r');
                 if (cases) {

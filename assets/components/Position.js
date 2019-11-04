@@ -7,7 +7,8 @@ const Position = (props) =>
         <div onClick={() => props.move(props.coord)}></div>
     ) : (
         <div>
-            <img className="piece"
+            <img 
+                className="piece"
                 onClick={() => props.selected(props.coord, props.content)}
                 src={props.content === 'r' ? redChecker : blackChecker}
                 alt={props.content === 'r' ? "red checker piece" : "black checker piece"}

@@ -3,7 +3,7 @@ import Board from '../../components/Board';
 import { shallow } from 'enzyme';
 import { initState } from '../fixtures/fixtures';
 
-let wrapper, selected, move
+let wrapper, selected, move;
 selected = jest.fn();
 move = jest.fn();
 
