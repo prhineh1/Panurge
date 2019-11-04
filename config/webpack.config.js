@@ -26,12 +26,19 @@ module.exports = (env) => {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        minified: isProd ? true : false
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            minified: isProd ? true : false
+                        },
+                    }, {
+                        loader: 'eslint-loader',
+                        options: {
+                            configFile: path.resolve(__dirname, '.eslintrc.json')
+                        }
                     }
-                }
+                ]
             }, {
                 test: /\.s?css$/,
                 use: [
@@ -45,12 +52,13 @@ module.exports = (env) => {
                         loader: "css-loader",
                         options: {
                             sourceMap: true,
-                            minimize: isProd ? true || { preset: "advanced" } : false                         }
+                            minimize: isProd ? true || { preset: "advanced" } : false                         
+                        }
                     }, {
                         loader: "postcss-loader",
                         options: {
                             sourceMap: true,
-                            config: { path: path.resolve(__dirname, 'config', 'postcss.config.js') },
+                            config: { path: path.resolve(__dirname, 'postcss.config.js') },
                         }
                     }, {
                         loader: "sass-loader",
