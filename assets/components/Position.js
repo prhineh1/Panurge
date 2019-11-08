@@ -3,7 +3,7 @@ import redChecker from '../imgs/red_checker.svg';
 import blackChecker from '../imgs/black_checker.svg';
 
 const Position = (props) => (props.content === 1 ? (
-  <div onClick={() => props.move(props.coord)} />
+  <div role="button" onClick={() => props.move(props.coord)} />
 ) : (
   <div>
     <img
