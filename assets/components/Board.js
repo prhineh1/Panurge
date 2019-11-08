@@ -1,18 +1,19 @@
 import React from 'react';
 import Position from './Position';
+import PropTypes from 'prop-types';
 
-const Board = (props) => (
+const Board = ({ turn, boardState, selected, canMoveTo, move }) => (
   <div className="board">
-    {props.boardState.map((rank, rankIndex) => rank.map((content, fileIndex) => {
-      const cases = (props.turn === 'black' && content === 'b')
-                    || (props.turn === 'red' && content === 'r');
+    {boardState.map((rank, rankIndex) => rank.map((content, fileIndex) => {
+      const cases = (turn === 'black' && content === 'b')
+                    || (turn === 'red' && content === 'r');
       if (cases) {
         return (
           <Position
             key={[rankIndex, fileIndex].toString()}
             coord={[rankIndex, fileIndex]}
             content={content}
-            selected={props.selected}
+            selected={selected}
           />
         );
       }
@@ -22,14 +23,10 @@ const Board = (props) => (
           coord={[rankIndex, fileIndex]}
           content={content}
           selected={undefined}
-          move={props.canMoveTo
-            .map((moves) => moves.filter((move) => move[0] === rankIndex && move[1] === fileIndex))
-            .some((el) => el) ? props.move : undefined}
+          move={canMoveTo.some((moves) => moves[0] === rankIndex && moves[1] === fileIndex) ? move : undefined}
         />
       );
     }))}
-    {' '}
-
   </div>
 );
 export default Board;
