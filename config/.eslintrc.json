@@ -1,7 +1,6 @@
 {
     "env": {
         "browser": true,
-        "es6": true,
         "jest": true
     },
     "extends": [
@@ -13,7 +12,8 @@
     },
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
+            "impliedStrict": true
         },
         "ecmaVersion": 2018,
         "sourceType": "module"

@@ -1,8 +1,8 @@
 import React from 'react';
 import Position from './Position';
 
-const Board = (props) =>
-    <div className="board">
+const Board = (props) => (
+<div className="board">
         {props.boardState.map((rank, rankIndex) =>
             rank.map((content, fileIndex) => {
                 const cases =
@@ -27,5 +27,5 @@ const Board = (props) =>
                 }
             })
         )}  </div>
-
+);
 export default Board;
