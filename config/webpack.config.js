@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = (env) => {
     const isProd = env === 'prod';
     return {
-        entry: ['@babel/polyfill', './assets/index.js'],
+        entry: ['@babel/polyfill', './assets/index.tsx'],
         output: {
             path: path.join(__dirname, '../dist'),
             filename: '[name].bundle.js'
@@ -21,10 +21,13 @@ module.exports = (env) => {
               }
             }
           },
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js']
+        },
         module: {
             rules: [
             {
-                test: /\.js$/,
+                test: /\.(ts|js)x?$/,
                 exclude: /node_modules/,
                 use: [
                     {
