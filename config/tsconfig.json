@@ -10,6 +10,9 @@
       "noEmit": true,
       "allowJs": true
     },
+    "files": [
+      "custom.d.ts"
+    ],
     "include": [
       "../assets"
     ],
