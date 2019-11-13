@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = (env) => {
     const isProd = env === 'prod';
     return {
-        entry: ['babel-polyfill', './assets/index.js'],
+        entry: ['@babel/polyfill', './assets/index.js'],
         output: {
             path: path.join(__dirname, '../dist'),
             filename: '[name].bundle.js'
