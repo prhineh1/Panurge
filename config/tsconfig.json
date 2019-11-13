@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "isolatedModules": true,
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "noImplicitAny": true,
+      "target": "esnext",
+      "strict": true,
+      "jsx": "react",
+      "noEmit": true,
+      "allowJs": true
+    },
+    "include": [
+      "../assets"
+    ],
+    "exclude": [
+      "node_modules",
+      "dist",
+      "**/*.test.js"
+    ]
+  }

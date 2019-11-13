@@ -11,7 +11,8 @@
     "watch": "webpack -d --watch --config ./config/webpack.config.js",
     "build:dev": "webpack -d --config ./config/webpack.config.js",
     "build:prod": "webpack -p --env prod --config ./config/webpack.config.js",
-    "heroku-postbuild": "npm run build:prod"
+    "heroku-postbuild": "npm run build:prod",
+    "check-types": "tsc -p ./config/tsconfig.json || true"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,8 @@
     "> 1%"
   ],
   "dependencies": {
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
     "autoprefixer": "^8.6.5",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
@@ -58,6 +61,7 @@
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.7.0",
+    "@babel/preset-typescript": "^7.7.2",
     "babel-loader": "^8.0.6",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
@@ -70,6 +74,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.9.0",
-    "raf": "^3.4.1"
+    "raf": "^3.4.1",
+    "typescript": "^3.7.2"
   }
 }
