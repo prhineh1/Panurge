@@ -5,7 +5,7 @@ const OptionsPanel = ({ players, concede, turn }) => (
   <div className="optionsPanel">
     { players.red.concede && <div>Black Wins</div> }
     { players.black.concede && <div>Red Wins</div> }
-    <button type='button' onClick={() => concede(turn)}>Concede</button>
+    <button type="button" onClick={() => concede(turn)}>Concede</button>
     <div>
       {`${turn}'s turn`}
     </div>
