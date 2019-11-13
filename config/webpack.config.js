@@ -36,7 +36,6 @@ module.exports = (env) => {
                         loader: 'eslint-loader',
                         options: {
                             configFile: path.resolve(__dirname, '.eslintrc.json'),
-                            cache: true,
                             fix: true,
                             emitWarning: true
                         }

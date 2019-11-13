@@ -24,9 +24,7 @@ const Board = ({
           key={[rankIndex, fileIndex].toString()}
           coord={[rankIndex, fileIndex]}
           content={content}
-          selected={undefined}
-          move={canMoveTo.some((moves) => moves[0] === rankIndex && moves[1] === fileIndex)
-            ? move : undefined}
+          move={canMoveTo.some((moves) => moves[0] === rankIndex && moves[1] === fileIndex) && move}
         />
       );
     }))}
