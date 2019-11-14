@@ -33,7 +33,8 @@ module.exports = (env) => {
                     {
                         loader: 'babel-loader',
                         options: {
-                            minified: isProd ? true : false
+                            minified: isProd ? true : false,
+                            configFile: path.resolve(__dirname, '.babelrc')
                         },
                     }, {
                         loader: 'eslint-loader',
