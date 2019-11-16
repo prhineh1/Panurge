@@ -1,4 +1,18 @@
-const initialState = {
+export interface GameState {
+  red: PlayerState;
+  black: PlayerState;
+  blacksTurn: boolean;
+  canMoveTo: number[][];
+  selectedPiece: number[];
+  boardState: (string | number)[][];
+}
+
+interface PlayerState {
+  concede: boolean;
+  lost: number;
+}
+
+const initialState: GameState = {
   red: { concede: false, lost: 12 },
   black: { concede: false, lost: 12 },
   blacksTurn: true,

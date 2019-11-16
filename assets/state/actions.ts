@@ -17,3 +17,7 @@ export const movePiece = (board, toCoords, selectedPiece, player) => ({
   selectedPiece,
   player,
 });
+
+export interface ReducerAction {
+  readonly type: string;
+}

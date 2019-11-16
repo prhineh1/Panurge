@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "isolatedModules": true,
+      "isolatedModules": false,
       "moduleResolution": "node",
       "esModuleInterop": true,
       "noImplicitAny": true,
@@ -11,14 +11,13 @@
       "allowJs": true
     },
     "files": [
-      "custom.d.ts"
+      "assets/custom.d.ts"
     ],
     "include": [
-      "../assets"
+      "assets"
     ],
     "exclude": [
       "node_modules",
       "dist",
-      "**/*.test.js"
     ]
   }

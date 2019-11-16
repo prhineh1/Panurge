@@ -1,6 +1,7 @@
 import { movable } from '../gameLogic/general';
+import { GameState } from './state';
 
-const reducer = (state, action) => {
+const reducer = (state: GameState, action): GameState => {
   switch (action.type) {
     case 'CONCEDE':
       return {

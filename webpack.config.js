@@ -7,7 +7,7 @@ module.exports = (env) => {
     return {
         entry: ['@babel/polyfill', './assets/index.tsx'],
         output: {
-            path: path.join(__dirname, '../dist'),
+            path: path.join(__dirname, 'dist'),
             filename: '[name].bundle.js'
         },
         optimization: {
@@ -33,13 +33,11 @@ module.exports = (env) => {
                     {
                         loader: 'babel-loader',
                         options: {
-                            minified: isProd ? true : false,
-                            configFile: path.resolve(__dirname, '.babelrc')
+                            minified: isProd ? true : false
                         },
                     }, {
                         loader: 'eslint-loader',
                         options: {
-                            configFile: path.resolve(__dirname, '.eslintrc.json'),
                             fix: true,
                             emitWarning: true
                         }
@@ -63,8 +61,7 @@ module.exports = (env) => {
                     }, {
                         loader: "postcss-loader",
                         options: {
-                            sourceMap: true,
-                            config: { path: path.resolve(__dirname, 'postcss.config.js') },
+                            sourceMap: true
                         }
                     }, {
                         loader: "sass-loader",

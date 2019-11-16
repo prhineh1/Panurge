@@ -7,12 +7,12 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "jest --config=./config/jest.config.json",
-    "watch": "webpack -d --watch --config ./config/webpack.config.js",
-    "build:dev": "webpack -d --config ./config/webpack.config.js",
-    "build:prod": "webpack -p --env prod --config ./config/webpack.config.js",
+    "test": "jest",
+    "watch": "webpack -d --watch",
+    "build:dev": "webpack -d",
+    "build:prod": "webpack -p --env prod",
     "heroku-postbuild": "npm run build:prod",
-    "check-types": "tsc -p ./config/tsconfig.json || true"
+    "check-types": "tsc || true"
   },
   "repository": {
     "type": "git",
@@ -64,9 +64,6 @@
     "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
     "babel-loader": "^8.0.6",
-    "enzyme": "^3.8.0",
-    "enzyme-adapter-react-16": "^1.7.1",
-    "enzyme-to-json": "^3.3.5",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-loader": "^3.0.2",
@@ -75,7 +72,6 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.9.0",
-    "raf": "^3.4.1",
     "typescript": "^3.7.2"
   }
 }
