@@ -1,13 +1,19 @@
+import { coordContent } from './actions';
+
+export type Immutable<T> = {
+  readonly [K in keyof T]: Immutable<T[K]>;
+};
+
 export interface GameState {
   red: PlayerState;
   black: PlayerState;
   blacksTurn: boolean;
   canMoveTo: number[][];
   selectedPiece: number[];
-  boardState: (string | number)[][];
+  boardState: coordContent[][];
 }
 
-interface PlayerState {
+export interface PlayerState {
   concede: boolean;
   lost: number;
 }

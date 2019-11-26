@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import redChecker from '../imgs/red_checker.svg';
 import blackChecker from '../imgs/black_checker.svg';
+import { coordContent } from '../state/actions';
+import { Immutable } from '../state/state';
 
-const Position = ({
+interface PositionProps {
+  coord: Immutable<number[]>;
+  content: coordContent;
+  selected?: (coord: Immutable<number[]>, content: coordContent) => void;
+  move?: (toCoords: Immutable<number[]>) => void;
+}
+
+
+const Position: React.FC<PositionProps> = ({
   coord, content, selected, move,
-}) => (content === 1 ? (
-  <button type="button" onKeyDown={() => move(coord)} onClick={() => move(coord)} />
+}): ReactElement => (content === 1 ? (
+  <button type="button" onKeyDown={(): void => move && move(coord)} onClick={(): void => move && move(coord)} />
 ) : (
-  <button type="button" onClick={() => selected(coord, content)} onKeyDown={() => selected(coord, content)}>
+  <button type="button" onClick={(): void => selected && selected(coord, content)} onKeyDown={(): void => selected && selected(coord, content)}>
     <img
       className="piece"
       src={content === 'r' ? redChecker : blackChecker}
@@ -18,15 +28,15 @@ const Position = ({
 ));
 
 Position.propTypes = {
-  coord: PropTypes.arrayOf(PropTypes.number).isRequired,
-  content: PropTypes.oneOf([1, 'r', 'b']).isRequired,
+  coord: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  content: PropTypes.oneOf<coordContent>([1, 'r', 'b']).isRequired,
   selected: PropTypes.func,
   move: PropTypes.func,
 };
 
 Position.defaultProps = {
-  selected: () => {},
-  move: () => {},
+  selected: (): void => {},
+  move: (): void => {},
 };
 
 export default Position;

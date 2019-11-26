@@ -1,10 +1,15 @@
+import { coordContent } from '../state/actions';
+import { Immutable } from '../state/state';
+
 /**
  * Returns an array of the possible moves or an empty array if none are available.
- * @param {number[][]} boardState - current state of game board
- * @param {number[]} coord - coordinates of currently selected piece coord[0]=rank coord[1]=file
- * @param {string} color - current color's turn
+ * @param boardState - current state of game board
+ * @param coord - coordinates of currently selected piece coord[0]=rank coord[1]=file
+ * @param color - current color's turn
  */
-export const movable = (boardState, coord, color) => {
+export const movable = (
+  boardState: Immutable<coordContent[][]>, coord: Immutable<number[]>, color: coordContent,
+): Immutable<number[][]> => {
   // by default red moves up (+1)
   if (color === 'r') {
     // at end of board
