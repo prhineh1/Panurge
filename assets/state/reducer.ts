@@ -1,12 +1,13 @@
 import { movable } from '../gameLogic/general';
-import { GameState, Immutable } from './state';
 import {
+  GameState,
+  Immutable,
   ReducerAction,
   Concede,
   SelectPiece,
   MovePiece,
   ActionType,
-} from './actions';
+} from '../types';
 
 const reducer = (
   state: Immutable<GameState>,

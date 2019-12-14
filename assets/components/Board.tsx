@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import Position from './Position';
-import { activePlayer, coordContent } from '../state/actions';
-import { Immutable } from '../state/state';
+import { activePlayer, coordContent, Immutable } from '../types';
 
 interface BoardProps {
   turn: activePlayer;

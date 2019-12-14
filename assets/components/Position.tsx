@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import redChecker from '../imgs/red_checker.svg';
 import blackChecker from '../imgs/black_checker.svg';
-import { coordContent } from '../state/actions';
-import { Immutable } from '../state/state';
+import { coordContent, Immutable } from '../types';
 
 interface PositionProps {
   coord: Immutable<number[]>;

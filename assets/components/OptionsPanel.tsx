@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
-import { PlayerState, Immutable } from '../state/state';
-import { activePlayer } from '../state/actions';
+import { PlayerState, Immutable, activePlayer } from '../types';
 
 interface OptionsPanelProps {
   red: Immutable<PlayerState>;

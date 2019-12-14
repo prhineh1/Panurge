@@ -1,14 +1,14 @@
 import React, { useReducer, ReactElement } from 'react';
 import Board from './Board';
 import OptionsPanel from './OptionsPanel';
-import initialState, { Immutable } from '../state/state';
+import initialState from '../state/state';
 import reducer from '../state/reducer';
 import {
   concede,
   selectPiece,
   movePiece,
-  activePlayer,
 } from '../state/actions';
+import { Immutable, activePlayer } from '../types';
 
 const Game: React.FC = (): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState);

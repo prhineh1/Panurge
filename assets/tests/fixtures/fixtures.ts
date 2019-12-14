@@ -1,4 +1,6 @@
-export const initState = {
+import { GameState, coordContent } from "../../types";
+
+export const initState: GameState = {
     red: { concede: false, lost: 12},
     black: { concede: false, lost: 12},
     blacksTurn: true,
@@ -16,7 +18,7 @@ export const initState = {
                 ]
 };
 
-export const moveTest = [
+export const moveTest: coordContent[][] = [
     [1, 'r', 1, 'r', 1, 'r', 1, 'r'],
     ['r', 1, 'r', 1, 'r', 1, 'r', 1],
     [1, 'r', 1, 'r', 1, 'r', 1, 'r'],
@@ -27,7 +29,7 @@ export const moveTest = [
     ['b', 1, 'b', 1, 'b', 1, 'b', 1]
 ]
 
-export const mixedBoard = [
+export const mixedBoard: coordContent[][] = [
     ['r', 1, 1, 'b', 1, 1, 'r', 1],
     [1, 1, 1, 1, 1, 'r', 1, 1],
     ['b', 1, 1, 1, 'b', 1 , 1, 'b'],

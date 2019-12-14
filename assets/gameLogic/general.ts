@@ -1,5 +1,4 @@
-import { coordContent } from '../state/actions';
-import { Immutable } from '../state/state';
+import { coordContent, Immutable } from '../types';
 
 /**
  * Returns an array of the possible moves or an empty array if none are available.

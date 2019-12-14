@@ -1,22 +1,4 @@
-import { coordContent } from './actions';
-
-export type Immutable<T> = {
-  readonly [K in keyof T]: Immutable<T[K]>;
-};
-
-export interface GameState {
-  red: PlayerState;
-  black: PlayerState;
-  blacksTurn: boolean;
-  canMoveTo: number[][];
-  selectedPiece: number[];
-  boardState: coordContent[][];
-}
-
-export interface PlayerState {
-  concede: boolean;
-  lost: number;
-}
+import { GameState } from '../types';
 
 const initialState: GameState = {
   red: { concede: false, lost: 12 },
