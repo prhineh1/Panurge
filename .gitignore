@@ -6,3 +6,4 @@ assets/tests/components/__snapshots__/*
 panurge.*
 vendor/
 .env
+bin/
