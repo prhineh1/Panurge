@@ -2,29 +2,37 @@
     width: 75%;
     @include grid-parent(8, 8, 1fr, 1fr);
 
-    > div {
+    > button {
         @include grid-children(4, 8);
         border: 1px solid rgb(21, 24, 66);
+
+        &.activeTurn .piece {
+            cursor: pointer;
+        }
+
+        &:focus {
+            outline: 0;
+        }
+
+        &.selectedPiece .piece {
+            outline: 3px solid blue;
+        }
+
+        &.canMove {
+            cursor: pointer;
+        }
     }
 
-    > div:nth-child(2n) {
-        background-color: $brown
+    > button:nth-child(2n) {
+        background-color: $brown;
     }
 
-    > div:nth-child(2n+1) {
-        background-color: $cream
+    > button:nth-child(2n+1) {
+        background-color: $cream;
     }
 
     .piece {
         width: 100%;
-        cursor: default;
-
-        &[onclick] {
-            cursor: pointer;
-
-            &:focus {
-                border: 1px solid blue;
-            }
-        }
+        cursor: not-allowed;
     }
 }

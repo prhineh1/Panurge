@@ -9,15 +9,16 @@ interface PositionProps {
   content: coordContent;
   selected?: (coord: Immutable<number[]>, content: coordContent) => void;
   move?: (toCoords: Immutable<number[]>) => void;
+  selectedPiece?: boolean;
 }
 
 
 const Position: React.FC<PositionProps> = ({
-  coord, content, selected, move,
+  coord, content, selected, move, selectedPiece,
 }): ReactElement => (content === 1 ? (
-  <button type="button" onKeyDown={(): void => move && move(coord)} onClick={(): void => move && move(coord)} />
+  <button className={move && 'canMove'} type="button" onKeyDown={(): void => move && move(coord)} onClick={(): void => move && move(coord)} />
 ) : (
-  <button type="button" onClick={(): void => selected && selected(coord, content)} onKeyDown={(): void => selected && selected(coord, content)}>
+  <button type="button" className={`${selected && 'activeTurn'} ${selectedPiece && 'selectedPiece'}`} onClick={(): void => selected && selected(coord, content)} onKeyDown={(): void => selected && selected(coord, content)}>
     <img
       className="piece"
       src={content === 'r' ? redChecker : blackChecker}
@@ -31,11 +32,13 @@ Position.propTypes = {
   content: PropTypes.oneOf<coordContent>([1, 'r', 'b']).isRequired,
   selected: PropTypes.func,
   move: PropTypes.func,
+  selectedPiece: PropTypes.bool,
 };
 
 Position.defaultProps = {
-  selected: (): void => {},
-  move: (): void => {},
+  selected: undefined,
+  move: undefined,
+  selectedPiece: false,
 };
 
 export default Position;

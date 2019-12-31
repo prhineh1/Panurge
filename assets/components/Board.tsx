@@ -9,10 +9,11 @@ interface BoardProps {
   selected: (coord: Immutable<number[]>) => void;
   canMoveTo: Immutable<number[][]>;
   move: (toCoords: Immutable<number[]>) => void;
+  selectedPiece: Immutable<number[]>;
 }
 
 const Board: React.FC<BoardProps> = ({
-  turn, boardState, selected, canMoveTo, move,
+  turn, boardState, selected, canMoveTo, move, selectedPiece,
 }): ReactElement => (
   <div className="board">
     {boardState.map((rank, rankIndex) => rank.map((content, fileIndex) => {
@@ -25,6 +26,7 @@ const Board: React.FC<BoardProps> = ({
             coord={[rankIndex, fileIndex]}
             content={content}
             selected={selected}
+            selectedPiece={selectedPiece[0] === rankIndex && selectedPiece[1] === fileIndex}
           />
         );
       }
@@ -51,6 +53,7 @@ Board.propTypes = {
   canMoveTo:
     PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number.isRequired).isRequired).isRequired,
   move: PropTypes.func.isRequired,
+  selectedPiece: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
 };
 
 export default Board;

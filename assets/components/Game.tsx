@@ -46,6 +46,7 @@ const Game: React.FC = (): ReactElement => {
         selected={actions.selectPiece}
         canMoveTo={state.canMoveTo}
         move={actions.movePiece}
+        selectedPiece={state.selectedPiece}
       />
       <OptionsPanel
         concede={actions.concede}

@@ -1,4 +1,6 @@
-import { ActionType, Immutable, ReducerAction, ReducerActionProps } from '../types';
+import {
+  ActionType, Immutable, ReducerAction, ReducerActionProps,
+} from '../types';
 
 export const concede = (props: Immutable<ReducerActionProps>): Immutable<ReducerAction> => ({
   type: ActionType.CONCEDE,
@@ -14,4 +16,3 @@ export const movePiece = (props: Immutable<ReducerActionProps>): Immutable<Reduc
   type: ActionType.MOVE_PIECE,
   ...props,
 });
-
