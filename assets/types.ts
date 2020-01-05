@@ -43,7 +43,7 @@ export interface GameState {
     red: PlayerState;
     black: PlayerState;
     blacksTurn: boolean;
-    canMoveTo: number[][];
+    canMoveTo: Move[];
     selectedPiece: number[];
     boardState: coordContent[][];
   }
@@ -52,3 +52,8 @@ export interface PlayerState {
     concede: boolean;
     lost: number;
   }
+
+export interface Move {
+  coords: number[];
+  attack: number[];
+}

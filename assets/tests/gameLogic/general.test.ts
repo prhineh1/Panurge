@@ -1,54 +1,51 @@
 import { movable } from '../../gameLogic/general';
-import { initState, mixedBoard } from '../fixtures/fixtures';
+import { mixedBoard } from '../fixtures/fixtures';
 
 let val;
 
-test('should return [] for a red piece', () => {
+test('should return no moves for red', () => {
     val = movable(mixedBoard, [7,2], 'r');
-    expect(val).toEqual([[]]);
+    expect(val).toEqual([]);
 });
 
-test('should return [] for a red piece', () => {
-    val = movable(initState.boardState, [0,1], 'r');
-    expect(val).toEqual([[]]);
-});
-
-test('should return two values for a red piece', () => {
-    val = movable(initState.boardState, [2,3], 'r');
-    expect(val).toEqual([[3, 4], [3, 2]]);
-});
-
-test('should return one value for a red piece', () => {
+test('should return one move for red', () => {
     val = movable(mixedBoard, [0,0], 'r');
-    expect(val).toEqual([[1, 1]]);
+    const moves = [{
+        coords: [1,1],
+        attack: []
+    }];
+    expect(val).toEqual(moves);
 });
 
-test('should return one value for a red piece', () => {
-    val = movable(mixedBoard, [4,7], 'r');
-    expect(val).toEqual([[5, 6]]);
+test('should return one move for black', () => {
+    val = movable(mixedBoard, [6,7], 'b');
+    const moves =[{
+        coords: [5,6],
+        attack: []
+    }];
+    expect(val).toEqual(moves);
 });
 
-test('should return [] for a black piece', () => {
-    val = movable(mixedBoard, [0, 3], 'b');
-    expect(val).toEqual([[]]);
+test('should return one move and one attack for red', () => {
+    val = movable(mixedBoard, [3,2], 'r');
+    const moves = [{
+        coords: [4,3],
+        attack: []
+    }, {
+        coords: [5,0],
+        attack: [4,1]
+    }];
+    expect(val).toEqual(moves);
 });
 
-test('should return [] for a black piece', () => {
-    let val = movable(initState.boardState, [6,7], 'b');
-    expect(val).toEqual([[]]);
-});
-
-test('should return two values for a black piece', () => {
-    let val = movable(initState.boardState, [5,4], 'b');
-    expect(val).toEqual([[4, 5], [4, 3]]);
-});
-
-test('should return one for a black piece', () => {
-    let val = movable(mixedBoard, [2,0], 'b');
-    expect(val).toEqual([[1, 1]]);
-});
-
-test('should return two values for a black piece', () => {
-    let val = movable(mixedBoard, [2,7], 'b');
-    expect(val).toEqual([[1,6]]);
+test('should return one move and one attack for black', () => {
+    val = movable(mixedBoard, [2,4], 'b');
+    const moves = [{
+        coords: [0,6],
+        attack: [1,5]
+    }, {
+        coords: [1,3],
+        attack: []
+    }];
+    expect(val).toEqual(moves);
 });

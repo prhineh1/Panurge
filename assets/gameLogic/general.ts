@@ -1,4 +1,4 @@
-import { coordContent, Immutable } from '../types';
+import { coordContent, Immutable, Move } from '../types';
 
 /**
  * Returns an array of the possible moves or an empty array if none are available.
@@ -8,51 +8,49 @@ import { coordContent, Immutable } from '../types';
  */
 export const movable = (
   boardState: Immutable<coordContent[][]>, coord: Immutable<number[]>, color: coordContent,
-): Immutable<number[][]> => {
-  // by default red moves up (+1)
-  if (color === 'r') {
-    // at end of board
-    if (boardState[coord[0] + 1] === undefined) {
-      return [[]];
-    }
+): Immutable<Move[]> => {
+  const player = {
+    move: color === 'r' ? coord[0] + 1 : coord[0] - 1,
+    attack: color === 'r' ? coord[0] + 2 : coord[0] - 2,
+    opposite: color === 'r' ? 'b' : 'r',
+  };
+  const moveRight = boardState[player.move]?.[coord[1] + 1];
+  const attackRight = boardState[player.attack]?.[coord[1] + 2];
+  const moveLeft = boardState[player.move]?.[coord[1] - 1];
+  const attackLeft = boardState[player.attack]?.[coord[1] - 2];
+  let moves: Immutable<Move[]> = [];
 
-    const redMoveRight = boardState[coord[0] + 1][coord[1] + 1];
-    const redMoveLeft = boardState[coord[0] + 1][coord[1] - 1];
-
-    // can move either right or left
-    if (redMoveRight === 1 && redMoveLeft === 1) {
-      return [[coord[0] + 1, coord[1] + 1], [coord[0] + 1, coord[1] - 1]];
-    }
-
-    // can only move right
-    if (redMoveRight === 1) {
-      return [[coord[0] + 1, coord[1] + 1]];
-    }
-
-    // can only move left
-    if (redMoveLeft === 1) {
-      return [[coord[0] + 1, coord[1] - 1]];
-    }
-
-    return [[]];
-  }
-  // by default black moves down (-1)
-  if (boardState[coord[0] - 1] === undefined) {
-    return [[]];
+  // move right
+  if (moveRight === 1) {
+    moves = moves.concat([{
+      coords: [player.move, coord[1] + 1],
+      attack: [],
+    }]);
   }
 
-  const blackMoveRight = boardState[coord[0] - 1][coord[1] + 1];
-  const blackMoveLeft = boardState[coord[0] - 1][coord[1] - 1];
-
-  if (blackMoveRight === 1 && blackMoveLeft === 1) {
-    return [[coord[0] - 1, coord[1] + 1], [coord[0] - 1, coord[1] - 1]];
-  }
-  if (blackMoveRight === 1) {
-    return [[coord[0] - 1, coord[1] + 1]];
-  }
-  if (blackMoveLeft === 1) {
-    return [[coord[0] - 1, coord[1] - 1]];
+  // attack right
+  if (moveRight === player.opposite && attackRight === 1) {
+    moves = moves.concat([{
+      coords: [player.attack, coord[1] + 2],
+      attack: [player.move, coord[1] + 1],
+    }]);
   }
 
-  return [[]];
+  // move left
+  if (moveLeft === 1) {
+    moves = moves.concat([{
+      coords: [player.move, coord[1] - 1],
+      attack: [],
+    }]);
+  }
+
+  // attack left
+  if (moveLeft === player.opposite && attackLeft === 1) {
+    moves = moves.concat([{
+      coords: [player.attack, coord[1] - 2],
+      attack: [player.move, coord[1] - 1],
+    }]);
+  }
+
+  return moves;
 };

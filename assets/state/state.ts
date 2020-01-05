@@ -1,10 +1,10 @@
-import { GameState } from '../types';
+import { GameState, Immutable } from '../types';
 
-const initialState: GameState = {
+const initialState: Immutable<GameState> = {
   red: { concede: false, lost: 12 },
   black: { concede: false, lost: 12 },
   blacksTurn: true,
-  canMoveTo: [[]],
+  canMoveTo: [],
   selectedPiece: [],
   boardState: [
     [1, 'r', 1, 'r', 1, 'r', 1, 'r'],

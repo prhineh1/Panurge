@@ -4,7 +4,7 @@ export const initState: GameState = {
     red: { concede: false, lost: 12},
     black: { concede: false, lost: 12},
     blacksTurn: true,
-    canMoveTo: [[4,5], [4,3]],
+    canMoveTo: [],
     selectedPiece: [5,4],
     boardState: [
                     [1, 'r', 1, 'r', 1, 'r', 1, 'r'],
@@ -30,7 +30,7 @@ export const moveTest: coordContent[][] = [
 ]
 
 export const mixedBoard: coordContent[][] = [
-    ['r', 1, 1, 'b', 1, 1, 'r', 1],
+    ['r', 1, 1, 'b', 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 'r', 1, 1],
     ['b', 1, 1, 1, 'b', 1 , 1, 'b'],
     [1, 1, 'r', 1, 1, 1, 1, 1],
