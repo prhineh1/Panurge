@@ -7,7 +7,10 @@ import { coordContent, Immutable, Move } from '../types';
  * @param color - current color's turn
  */
 export const movable = (
-  boardState: Immutable<coordContent[][]>, coord: Immutable<number[]>, color: coordContent,
+  boardState: Immutable<coordContent[][]>,
+  coord: Immutable<number[]>,
+  color: coordContent,
+  attack: boolean,
 ): Immutable<Move[]> => {
   const player = {
     move: color === 'r' ? coord[0] + 1 : coord[0] - 1,
@@ -21,7 +24,7 @@ export const movable = (
   let moves: Immutable<Move[]> = [];
 
   // move right
-  if (moveRight === 1) {
+  if (moveRight === 1 && !attack) {
     moves = moves.concat([{
       coords: [player.move, coord[1] + 1],
       attack: [],
@@ -37,7 +40,7 @@ export const movable = (
   }
 
   // move left
-  if (moveLeft === 1) {
+  if (moveLeft === 1 && !attack) {
     moves = moves.concat([{
       coords: [player.move, coord[1] - 1],
       attack: [],

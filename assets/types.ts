@@ -26,7 +26,7 @@ export interface SelectPiece {
 
 export interface MovePiece {
     readonly board: coordContent[][];
-    readonly moveToCoord: number[];
+    readonly moveToCoord: Move[];
     readonly selectedPiece: number[];
     readonly coordContent: coordContent;
   }
@@ -46,6 +46,7 @@ export interface GameState {
     canMoveTo: Move[];
     selectedPiece: number[];
     boardState: coordContent[][];
+    attacked: boolean;
   }
 
 export interface PlayerState {

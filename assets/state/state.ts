@@ -5,6 +5,7 @@ const initialState: Immutable<GameState> = {
   black: { concede: false, lost: 12 },
   blacksTurn: true,
   canMoveTo: [],
+  attacked: false,
   selectedPiece: [],
   boardState: [
     [1, 'r', 1, 'r', 1, 'r', 1, 'r'],

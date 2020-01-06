@@ -15,7 +15,8 @@ export const initState: GameState = {
                     ['b', 1, 'b', 1, 'b', 1, 'b', 1],
                     [1, 'b', 1, 'b', 1, 'b', 1, 'b'],
                     ['b', 1, 'b', 1, 'b', 1, 'b', 1]
-                ]
+                ],
+    attacked: false,
 };
 
 export const moveTest: coordContent[][] = [

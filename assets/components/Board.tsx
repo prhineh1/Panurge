@@ -1,13 +1,18 @@
 import React, { ReactElement } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 import Position from './Position';
-import { activePlayer, coordContent, Immutable } from '../types';
+import {
+  activePlayer,
+  coordContent,
+  Immutable,
+  Move,
+} from '../types';
 
 interface BoardProps {
   turn: activePlayer;
   boardState: Immutable<coordContent[][]>;
   selected: (coord: Immutable<number[]>) => void;
-  canMoveTo: Immutable<number[][]>;
+  canMoveTo: Immutable<Move[]>;
   move: (toCoords: Immutable<number[]>) => void;
   selectedPiece: Immutable<number[]>;
 }
@@ -36,7 +41,8 @@ const Board: React.FC<BoardProps> = ({
           coord={[rankIndex, fileIndex]}
           content={content}
           move={
-            canMoveTo.some((moves) => moves[0] === rankIndex && moves[1] === fileIndex)
+            canMoveTo
+              .some((moves) => moves.coords[0] === rankIndex && moves.coords[1] === fileIndex)
               ? move
               : undefined
           }
@@ -51,7 +57,10 @@ Board.propTypes = {
   boardState: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.oneOf<coordContent>(['b', 'r', 1]).isRequired).isRequired).isRequired,
   selected: PropTypes.func.isRequired,
   canMoveTo:
-    PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number.isRequired).isRequired).isRequired,
+    PropTypes.arrayOf(PropTypes.shape({
+      coords: PropTypes.arrayOf(number.isRequired).isRequired,
+      attack: PropTypes.arrayOf(number.isRequired).isRequired,
+    }).isRequired).isRequired,
   move: PropTypes.func.isRequired,
   selectedPiece: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
 };

@@ -25,7 +25,8 @@ const Game: React.FC = (): ReactElement => {
     movePiece: (toCoords: Immutable<number[]>): void => dispatch(movePiece({
       movePiece: {
         board: state.boardState,
-        moveToCoord: toCoords,
+        moveToCoord: state.canMoveTo
+          .filter((move) => move.coords[0] === toCoords[0] && move.coords[1] === toCoords[1]),
         selectedPiece: state.selectedPiece,
         coordContent: state.blacksTurn ? 'b' : 'r',
       },

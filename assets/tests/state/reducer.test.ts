@@ -1,5 +1,5 @@
 import reducer from '../../state/reducer';
-import { initState } from '../fixtures/fixtures';
+import { initState, mixedBoard } from '../fixtures/fixtures';
 import { ActionType, ReducerAction, Concede, SelectPiece, MovePiece } from '../../types';
 
 test('should concede for red', () => {
@@ -33,7 +33,10 @@ test('should select a piece for black', () => {
     const state = reducer(initState, action);
     expect(state).toEqual({
         ...initState,
-        canMoveTo: [[4, 1]],
+        canMoveTo: [{
+            coords: [4,1],
+            attack: [],
+        }],
         selectedPiece: [5, 0]
     });
 });
@@ -41,7 +44,10 @@ test('should select a piece for black', () => {
 test('should move a piece for black', () => {
     const movePiece: MovePiece = {
         board: initState.boardState,
-        moveToCoord: [4,2],
+        moveToCoord: [{
+            coords: [4,1],
+            attack: [],
+        }],
         selectedPiece: [5,0],
         coordContent: 'b'
     };
@@ -51,13 +57,43 @@ test('should move a piece for black', () => {
     };
     const state = reducer(initState, action);
 
-    initState.boardState[4][2] = 'b';
+    initState.boardState[4][1] = 'b';
     initState.boardState[5][0] = 1;
 
     expect(state).toEqual({
         ...initState,
-        canMoveTo: [[]],
+        canMoveTo: [],
         selectedPiece: [],
-        blacksTurn: !initState.blacksTurn
+        blacksTurn: !initState.blacksTurn,
+        attacked: false,
+    });
+});
+
+test('should move a piece for red', () => {
+    const movePiece: MovePiece = {
+        board: mixedBoard,
+        moveToCoord: [{
+            coords: [6,0],
+            attack: [5,1]
+        }],
+        selectedPiece: [4,2],
+        coordContent: 'r'
+    };
+    const action: ReducerAction = {
+        type: ActionType.MOVE_PIECE,
+        movePiece
+    };
+    const state = reducer({ ...initState, boardState: mixedBoard, blacksTurn: false }, action);
+
+    mixedBoard[6][0] = 'r';
+    mixedBoard[5][1] = 1;
+    mixedBoard[4][2] = 1;
+    expect(state).toEqual({
+        ...initState,
+        boardState: mixedBoard,
+        canMoveTo: [],
+        selectedPiece: [],
+        blacksTurn: false,
+        attacked: true
     });
 });
