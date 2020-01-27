@@ -16,9 +16,19 @@ interface PositionProps {
 const Position: React.FC<PositionProps> = ({
   coord, content, selected, move, selectedPiece,
 }): ReactElement => (content === 1 ? (
-  <button className={move && 'canMove'} type="button" onKeyDown={(): void => move && move(coord)} onClick={(): void => move && move(coord)} />
+  <button
+    className={move && 'canMove'}
+    type="button"
+    onKeyDown={(): void => move?.(coord)}
+    onClick={(): void => move?.(coord)}
+  />
 ) : (
-  <button type="button" className={`${selected && 'activeTurn'} ${selectedPiece && 'selectedPiece'}`} onClick={(): void => selected && selected(coord, content)} onKeyDown={(): void => selected && selected(coord, content)}>
+  <button
+    type="button"
+    className={`${selected && 'activeTurn'} ${selectedPiece && 'selectedPiece'}`}
+    onClick={(): void => selected?.(coord, content)}
+    onKeyDown={(): void => selected?.(coord, content)}
+  >
     <img
       className="piece"
       src={content === 'r' ? redChecker : blackChecker}

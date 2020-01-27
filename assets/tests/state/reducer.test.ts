@@ -73,10 +73,10 @@ test('should move a piece for red', () => {
     const movePiece: MovePiece = {
         board: mixedBoard,
         moveToCoord: [{
-            coords: [6,0],
-            attack: [5,1]
+            coords: [5,0],
+            attack: [4,1]
         }],
-        selectedPiece: [4,2],
+        selectedPiece: [3,2],
         coordContent: 'r'
     };
     const action: ReducerAction = {
@@ -85,15 +85,44 @@ test('should move a piece for red', () => {
     };
     const state = reducer({ ...initState, boardState: mixedBoard, blacksTurn: false }, action);
 
-    mixedBoard[6][0] = 'r';
-    mixedBoard[5][1] = 1;
-    mixedBoard[4][2] = 1;
+    mixedBoard[5][0] = 'r';
+    mixedBoard[4][1] = 1;
+    mixedBoard[3][2] = 1;
     expect(state).toEqual({
         ...initState,
         boardState: mixedBoard,
         canMoveTo: [],
         selectedPiece: [],
-        blacksTurn: false,
+        blacksTurn: true,
+        attacked: true
+    });
+});
+
+test('should move a piece for black plus another turn', () => {
+    const movePiece: MovePiece = {
+        board: mixedBoard,
+        moveToCoord: [{
+            coords: [2,3],
+            attack: [3,2]
+        }],
+        selectedPiece: [4,1],
+        coordContent: 'b'
+    };
+    const action: ReducerAction = {
+        type: ActionType.MOVE_PIECE,
+        movePiece
+    };
+    const state = reducer({ ...initState, boardState: mixedBoard }, action);
+
+    mixedBoard[2][3] = 'b';
+    mixedBoard[4][1] = 1;
+    mixedBoard[3][2] = 1;
+    expect(state).toEqual({
+        ...initState,
+        boardState: mixedBoard,
+        canMoveTo: [],
+        selectedPiece: [],
+        blacksTurn: true,
         attacked: true
     });
 });

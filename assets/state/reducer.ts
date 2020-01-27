@@ -7,6 +7,7 @@ import {
   SelectPiece,
   MovePiece,
   ActionType,
+  Move,
 } from '../types';
 
 const reducer = (
@@ -43,11 +44,19 @@ const reducer = (
       const selectedPieceColumn = updates.selectedPiece[1];
       const newPiece = updates.coordContent;
       let attacked = false;
+      let newCoord: number[] = [];
+      let stillAttacking: Immutable<Move[]> = [];
 
       const newBoard = updates.board.map((row, i) => {
         // move selected piece
         if (i === move.coords[0]) {
-          return row.map((column, j) => ((j === move.coords[1]) ? newPiece : column));
+          return row.map((column, j) => {
+            if (j === move.coords[1]) {
+              newCoord = newCoord.concat(i, j);
+              return newPiece;
+            }
+            return column;
+          });
         }
         // replace with empty space
         if (i === selectedPieceRow) {
@@ -60,13 +69,24 @@ const reducer = (
         }
         return row;
       });
+
+      // if player attacked check if any more attacks are available
+      if (attacked) {
+        stillAttacking = movable(
+          newBoard,
+          newCoord,
+          newPiece,
+          attacked,
+        );
+      }
+
       return {
         ...state,
         boardState: newBoard,
-        canMoveTo: [],
-        selectedPiece: [],
-        blacksTurn: !attacked ? !state.blacksTurn : state.blacksTurn,
-        attacked,
+        canMoveTo: stillAttacking.length ? stillAttacking : [],
+        selectedPiece: stillAttacking.length ? newCoord : [],
+        blacksTurn: stillAttacking.length ? state.blacksTurn : !state.blacksTurn,
+        attacked: !!stillAttacking.length,
       };
     }
 

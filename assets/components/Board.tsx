@@ -11,7 +11,7 @@ import {
 interface BoardProps {
   turn: activePlayer;
   boardState: Immutable<coordContent[][]>;
-  selected: (coord: Immutable<number[]>) => void;
+  selected?: (coord: Immutable<number[]>) => void;
   canMoveTo: Immutable<Move[]>;
   move: (toCoords: Immutable<number[]>) => void;
   selectedPiece: Immutable<number[]>;
@@ -55,7 +55,7 @@ const Board: React.FC<BoardProps> = ({
 Board.propTypes = {
   turn: PropTypes.oneOf<activePlayer>(['black', 'red']).isRequired,
   boardState: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.oneOf<coordContent>(['b', 'r', 1]).isRequired).isRequired).isRequired,
-  selected: PropTypes.func.isRequired,
+  selected: PropTypes.func,
   canMoveTo:
     PropTypes.arrayOf(PropTypes.shape({
       coords: PropTypes.arrayOf(number.isRequired).isRequired,
@@ -63,6 +63,10 @@ Board.propTypes = {
     }).isRequired).isRequired,
   move: PropTypes.func.isRequired,
   selectedPiece: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+};
+
+Board.defaultProps = {
+  selected: undefined,
 };
 
 export default Board;

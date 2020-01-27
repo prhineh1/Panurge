@@ -16,8 +16,8 @@ var env *config.Environment
 
 func TestMain(m *testing.M) {
 	var err error
-	TestDB, err = models.NewDB("postgres://gkrucblczymycm:e5ceda4bdb86327d66be10e1657cec7fce7bbd2db8ed67dd948456aedd678c9b@ec2-75-101-147-226.compute-1.amazonaws.com:5432/d5k3jr85bgf4fq",
-		"redis://h:p82901be92bb76cd4025436f9f2b49d803babbfbbcf1b88cd71e932412ae856cd@ec2-3-232-190-188.compute-1.amazonaws.com:17679",
+	TestDB, err = models.NewDB(os.Getenv("HEROKU_POSTGRESQL_GREEN_URL"),
+		os.Getenv("HEROKU_REDIS_GOLD_URL"),
 		true)
 	if err != nil {
 		log.Panic(err)

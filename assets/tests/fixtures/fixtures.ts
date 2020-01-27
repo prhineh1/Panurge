@@ -32,7 +32,7 @@ export const moveTest: coordContent[][] = [
 
 export const mixedBoard: coordContent[][] = [
     ['r', 1, 1, 'b', 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 'r', 1, 1],
+    [1, 1, 1, 1, 'r', 'r', 1, 1],
     ['b', 1, 1, 1, 'b', 1 , 1, 'b'],
     [1, 1, 'r', 1, 1, 1, 1, 1],
     ['r', 'b', 1, 1, 1, 1, 1, 'r'],

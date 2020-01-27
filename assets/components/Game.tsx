@@ -44,7 +44,7 @@ const Game: React.FC = (): ReactElement => {
       <Board
         turn={turn}
         boardState={state.boardState}
-        selected={actions.selectPiece}
+        selected={!state.attacked ? actions.selectPiece : undefined}
         canMoveTo={state.canMoveTo}
         move={actions.movePiece}
         selectedPiece={state.selectedPiece}
