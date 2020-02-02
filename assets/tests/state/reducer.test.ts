@@ -94,7 +94,7 @@ test('should move a piece for red', () => {
         canMoveTo: [],
         selectedPiece: [],
         blacksTurn: true,
-        attacked: true
+        attacked: false
     });
 });
 
@@ -120,8 +120,11 @@ test('should move a piece for black plus another turn', () => {
     expect(state).toEqual({
         ...initState,
         boardState: mixedBoard,
-        canMoveTo: [],
-        selectedPiece: [],
+        canMoveTo: [{
+            coords: [0,5],
+            attack: [1,4],
+        }],
+        selectedPiece: [2,3],
         blacksTurn: true,
         attacked: true
     });
