@@ -55,8 +55,7 @@ module.exports = (env) => {
                     }, {
                         loader: "css-loader",
                         options: {
-                            sourceMap: true,
-                            minimize: isProd ? true || { preset: "advanced" } : false
+                            sourceMap: true
                         }
                     }, {
                         loader: "postcss-loader",

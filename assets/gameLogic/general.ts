@@ -1,10 +1,10 @@
 import { coordContent, Immutable, Move } from '../types';
 
 /**
- * Returns an array of the possible moves or an empty array if none are available.
- * @param boardState - current state of game board
- * @param coord - coordinates of currently selected piece coord[0]=rank coord[1]=file
- * @param color - current color's turn
+ * Returns an array of the possible moves/attacks or an empty array if none are available.
+ * @param boardState current state of game board
+ * @param coord coordinates of currently selected piece coord[0]=rank coord[1]=file
+ * @param color current color's turn
  */
 export const movable = (
   boardState: Immutable<coordContent[][]>,

@@ -1,4 +1,4 @@
-import { Concede, ReducerActionProps, SelectPiece, MovePiece } from '../../types';
+import { Concede, ReducerActionProps, SelectPiece, MovePiece, Move } from '../../types';
 import { concede, selectPiece, movePiece } from '../../state/actions';
 import { initState } from '../fixtures/fixtures'
 
@@ -35,7 +35,10 @@ test('should setup selectPiece object', () => {
 test('should setup movePiece object', () => {
     const moveObject: MovePiece = {
         board: initState.boardState,
-        moveToCoord: [4,2],
+        moveToCoord: [{
+            coords: [4,2],
+            attack: [],
+        }],
         selectedPiece: [5,0],
         coordContent: 'b'
     };
