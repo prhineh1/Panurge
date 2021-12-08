@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Game 1`] = `
+<div
+  className="game-wrapper"
+>
+  <Game
+    boardState={
+      Array [
+        Array [
+          1,
+          "r",
+          1,
+          "r",
+          1,
+          "r",
+          1,
+          "r",
+        ],
+        Array [
+          "r",
+          1,
+          "r",
+          1,
+          "r",
+          1,
+          "r",
+          1,
+        ],
+        Array [
+          1,
+          "r",
+          1,
+          "r",
+          1,
+          "r",
+          1,
+          "r",
+        ],
+        Array [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+        ],
+        Array [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+        ],
+        Array [
+          "b",
+          1,
+          "b",
+          1,
+          "b",
+          1,
+          "b",
+          1,
+        ],
+        Array [
+          1,
+          "b",
+          1,
+          "b",
+          1,
+          "b",
+          1,
+          "b",
+        ],
+        Array [
+          "b",
+          1,
+          "b",
+          1,
+          "b",
+          1,
+          "b",
+          1,
+        ],
+      ]
+    }
+    turn="black"
+  />
+  <OptionsPanel
+    concede={[Function]}
+    players={
+      Object {
+        "black": Object {
+          "concede": false,
+          "lost": 0,
+        },
+        "red": Object {
+          "concede": false,
+          "lost": 0,
+        },
+      }
+    }
+  />
+</div>
+`;
