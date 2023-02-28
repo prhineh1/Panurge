@@ -1,1 +1,1 @@
-web: panurge
+web: ./bin/panurge

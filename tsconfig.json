@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "isolatedModules": false,
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "target": "esnext",
+      "strict": true,
+      "jsx": "react",
+      "noEmit": true,
+      "allowJs": true
+    },
+    "files": [
+      "assets/custom.d.ts"
+    ],
+    "include": [
+      "assets"
+    ],
+    "exclude": [
+      "node_modules",
+      "dist",
+    ]
+  }
