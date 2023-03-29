@@ -9,4 +9,6 @@ COPY . .
 
 RUN go build -o /panurge
 
+EXPOSE 8080
+
 CMD [ "/panurge" ]

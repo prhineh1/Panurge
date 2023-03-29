@@ -47,7 +47,19 @@ func NewDB(postgresConn, redisConn string, isTest bool) (*DB, error) {
 		ty = "uuid"
 	}
 
-	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS users(
+	// create schema
+	_, err = db.Exec(`CREATE SCHEMA IF NOT EXISTS app`)
+	if err != nil {
+		return nil, err
+	}
+
+	// set search path
+	_, err = db.Exec(`SET search_path TO app`)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS app.users(
 					  id ` + ty + ` PRIMARY KEY,
 					  username text NOT NULL UNIQUE,
 					  password bytea NOT NULL,

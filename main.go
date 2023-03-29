@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"os"
 
 	c "github.com/prhineh1/panurge/config"
 	r "github.com/prhineh1/panurge/routes"
@@ -10,7 +9,7 @@ import (
 
 func main() {
 	c.SetupEnv()
-	p := os.Getenv("PORT")
+	p := "8080"
 	http.Handle("/", r.Logger(c.Env, r.Index(c.Env)))
 	http.Handle("/dist/", http.StripPrefix("/dist", http.FileServer(http.Dir("./dist"))))
 	http.Handle("/login", r.Logger(c.Env, r.Login(c.Env)))
@@ -20,5 +19,5 @@ func main() {
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 
 	c.Env.Log.Println("Server is starting on port " + p)
-	http.ListenAndServe(":"+p, nil)
+	http.ListenAndServe(":8080", nil)
 }

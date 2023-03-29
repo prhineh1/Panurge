@@ -1,0 +1,46 @@
+services:
+  backend:
+    depends_on:
+      - pg
+      - cache
+    build: 
+      context: .
+      dockerfile: backend.Dockerfile
+    container_name: backend
+    hostname: backend
+    environment:
+      - DATABASE_URL=db
+    networks:
+      - app-net
+    ports:
+      - 8080:8080
+    restart: on-failure
+  pg:
+    image: postgres:15.2
+    container_name: pg
+    environment:
+      - POSTGRES_PASSWORD='postgres'
+    hostname: db
+    networks:
+      - app-net
+    ports:
+      - 5432:5432
+    volumes:
+      - panurge:/var/lib/postgresql/data
+  cache:
+    image: redis
+    container_name: cache
+    hostname: redis
+    networks:
+      - app-net
+    ports:
+      - 6379:6379
+    command: ['redis-server']
+
+volumes:
+  panurge:
+  panurge-test:
+
+networks:
+  app-net:
+    driver: bridge

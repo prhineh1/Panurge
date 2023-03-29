@@ -6,7 +6,7 @@ require (
 	github.com/davecgh/go-spew v1.1.0 // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/kr/pretty v0.1.0 // indirect
-	github.com/lib/pq v0.0.0-20180523175426-90697d60dd84
+	github.com/lib/pq v1.10.4
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/satori/go.uuid v1.2.0
 	github.com/stretchr/testify v1.2.2
