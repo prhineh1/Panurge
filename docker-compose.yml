@@ -5,7 +5,6 @@ services:
       - cache
     build: 
       context: .
-      dockerfile: backend.Dockerfile
     container_name: backend
     hostname: backend
     environment:

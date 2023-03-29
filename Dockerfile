@@ -1,3 +1,9 @@
+FROM node:lts
+WORKDIR /build
+COPY . .
+RUN npm ci && npm run build:dev
+COPY dist .
+
 FROM golang:1.13
 
 WORKDIR /Panurge
@@ -10,5 +16,7 @@ COPY . .
 RUN go build -o /panurge
 
 EXPOSE 8080
+
+COPY --from=0 /build/dist .
 
 CMD [ "/panurge" ]

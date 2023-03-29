@@ -3,6 +3,7 @@ package models
 import (
 	"errors"
 	"regexp"
+	"log"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -20,6 +21,7 @@ func (db *DB) CreateUser(user *User) (string, error) {
 	err := row.Scan(&un)
 	if err != nil {
 		return "", err
+		log.Print(err)
 	}
 	return un, nil
 }

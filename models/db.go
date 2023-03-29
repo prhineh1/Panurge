@@ -59,7 +59,7 @@ func NewDB(postgresConn, redisConn string, isTest bool) (*DB, error) {
 		return nil, err
 	}
 
-	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS app.users(
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS users(
 					  id ` + ty + ` PRIMARY KEY,
 					  username text NOT NULL UNIQUE,
 					  password bytea NOT NULL,

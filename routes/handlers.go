@@ -3,6 +3,7 @@ package routes
 import (
 	"net/http"
 	"strings"
+	"log"
 
 	"github.com/prhineh1/panurge/config"
 	"github.com/prhineh1/panurge/models"
@@ -62,6 +63,7 @@ func Register(env *config.Environment) http.Handler {
 				env.Tpl.ExecuteTemplate(w, "register.html", Message{u.UserName + " is taken"})
 				return
 			}
+			log.Print(err)
 			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 			return
 		}
@@ -69,6 +71,7 @@ func Register(env *config.Environment) http.Handler {
 		//Create session
 		c, _, err := env.Db.CreateSession(un, "")
 		if err != nil {
+			log.Print(err)
 			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 			return
 		}
