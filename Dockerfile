@@ -7,8 +7,6 @@ COPY dist .
 FROM golang:1.13
 
 WORKDIR /Panurge
-
-RUN go get -v golang.org/x/tools/gopls
  
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
@@ -20,5 +18,7 @@ RUN go build -o /panurge
 EXPOSE 8080
 
 COPY --from=0 /build/dist .
+
+RUN go get -v golang.org/x/tools/gopls
 
 CMD [ "/panurge" ]
