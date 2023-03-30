@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "watch": "webpack -d --watch",
-    "build:dev": "esbuild ./assets/index.tsx --bundle --outdir=dist --jsx=transform --sourcemap --loader:.svg=dataurl",
+    "build:dev": "node build.js",
     "build:prod": "webpack -p --env prod",
     "check-types": "tsc || true"
   },
