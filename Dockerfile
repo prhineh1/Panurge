@@ -4,21 +4,14 @@ COPY . .
 RUN npm ci && npm run build:dev
 COPY dist .
 
-FROM golang:1.13
-
+FROM golang:1.20.2
 WORKDIR /Panurge
- 
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
-
-COPY . .
-
-RUN go build -o /panurge
-
-EXPOSE 8080
-
-COPY --from=0 /build/dist .
-
+# needed for vscode golang extension
 RUN go get -v golang.org/x/tools/gopls
-
+COPY . .
+RUN go build -o /panurge
+EXPOSE 8080
+COPY --from=0 /build/dist .
 CMD [ "/panurge" ]
