@@ -22,13 +22,13 @@
 			"nodeGypDependencies": true,
 			"version": "lts"
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": ["8080:8080"],
 
 	// Uncomment the next line if you want start specific services in your Docker Compose config.
 	// "runServices": [],
@@ -38,6 +38,7 @@
 
 	// Uncomment the next line to run commands after the container is created.
 	"postCreateCommand": "./postCreateScript.sh",
+	"postStartCommand": "go run main.go",
 
 	// Configure tool-specific properties.
 	"customizations": {
