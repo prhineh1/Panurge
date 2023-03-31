@@ -4,6 +4,7 @@ dist/
 .vscode/
 assets/tests/components/__snapshots__/*
 panurge.*
+panurge
 vendor/
 .env
 bin/
