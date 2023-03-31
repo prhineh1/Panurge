@@ -1,4 +1,3 @@
-FROM golang:1.20.2
-WORKDIR /Panurge
+FROM nginx:latest
 COPY . .
-RUN rm -rf node_modules/
+RUN rm -rf node_modules/ dist/ panurge
