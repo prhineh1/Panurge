@@ -5,6 +5,8 @@ RUN npm ci && npm run build:dev
 COPY dist .
 
 FROM golang:1.20.2
+# install nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 WORKDIR /Panurge
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
