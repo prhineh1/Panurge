@@ -38,7 +38,7 @@
 
 	// Uncomment the next line to run commands after the container is created.
 	"postCreateCommand": "./postCreateScript.sh",
-	"postStartCommand": "go run main.go",
+	"postStartCommand": "./postStartScript.sh",
 
 	// Configure tool-specific properties.
 	"customizations": {
