@@ -4,3 +4,5 @@ import Game from './components/Game';
 import './styles/index.scss';
 
 ReactDOM.render(<Game />, document.getElementById('app'));
+
+new EventSource('/esbuild').addEventListener('change', () => window.location.reload());
