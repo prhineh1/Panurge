@@ -9,7 +9,7 @@ import (
 
 func main() {
 	c.SetupEnv()
-	p := "8080"
+	p := "8000"
 	http.Handle("/", r.Logger(c.Env, r.Index(c.Env)))
 	http.Handle("/dist/", http.StripPrefix("/dist", http.FileServer(http.Dir("./dist"))))
 	http.Handle("/login", r.Logger(c.Env, r.Login(c.Env)))
@@ -19,5 +19,5 @@ func main() {
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 
 	c.Env.Log.Println("Server is starting on port " + p)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8000", nil)
 }

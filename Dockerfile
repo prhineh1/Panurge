@@ -10,6 +10,6 @@ COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 COPY . .
 RUN go build -o /panurge
-EXPOSE 8080
+EXPOSE 8000
 COPY --from=0 /build/dist .
 CMD [ "/panurge" ]
