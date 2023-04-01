@@ -5,7 +5,11 @@ go mod tidy
 
 # install vim
 apt update
-apt install vim -y
+apt install vim procps -y
 
 # start nginx
 service nginx start
+
+# drop symlinks for nginx logs
+unlink /var/log/nginx/access.log
+unlink /var/log/nginx/error.log
