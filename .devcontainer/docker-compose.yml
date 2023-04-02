@@ -14,10 +14,12 @@ services:
     volumes:
       # Update this to wherever you want VS Code to mount the folder of your project
       - ..:/code:cached
+      - ./nginx/config/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/certs:/etc/nginx/certs
 
     ports:
-      - "8080:80" # nginx
-      - "3000:3000" # esbuild dev server
+      - "80:80" # nginx
+      - "443:443"
     
     environment:
       - ENVIRONMENT=dev

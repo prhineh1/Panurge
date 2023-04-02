@@ -12,8 +12,6 @@ services:
       - DATABASE_HOST=db
     networks:
       - app-net
-    ports:
-      - 8000:8000
     restart: on-failure
   pg:
     image: postgres:15-alpine
@@ -25,8 +23,6 @@ services:
     hostname: db
     networks:
       - app-net
-    ports:
-      - 5432:5432
     volumes:
       - panurge:/var/lib/postgresql/data
   cache:
@@ -35,8 +31,6 @@ services:
     hostname: redis
     networks:
       - app-net
-    ports:
-      - 6379:6379
     command: ['redis-server']
 
 volumes:
