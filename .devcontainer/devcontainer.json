@@ -50,9 +50,12 @@
 				"golang.go",
 				"dbaeumer.vscode-eslint",
 				"ms-azuretools.vscode-docker"
-			]
+			],
+			"settings": {
+				"editor.tabSize": 2
+			}
 		}
-	},
+	}
 
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"

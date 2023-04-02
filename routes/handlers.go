@@ -1,9 +1,11 @@
 package routes
 
 import (
-	"net/http"
-	"strings"
+	"encoding/json"
 	"log"
+	"net/http"
+	"os"
+	"strings"
 
 	"github.com/prhineh1/panurge/config"
 	"github.com/prhineh1/panurge/models"
@@ -12,6 +14,10 @@ import (
 
 type Message struct {
 	Error string
+}
+
+type EnvironmentVariablesFrontend struct {
+	ENVIRONMENT string `json:"environment"`
 }
 
 func Index(env *config.Environment) http.Handler {
@@ -138,5 +144,13 @@ func Logout(env *config.Environment) http.Handler {
 		c.MaxAge = -1
 		http.SetCookie(w, c)
 		http.Redirect(w, req, "/login", http.StatusSeeOther)
+	})
+}
+
+func EnvVars() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		envs := EnvironmentVariablesFrontend{ENVIRONMENT: os.Getenv("ENVIRONMENT")}
+		json.NewEncoder(w).Encode(envs)
 	})
 }

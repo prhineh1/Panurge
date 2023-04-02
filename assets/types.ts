@@ -58,3 +58,7 @@ export interface Move {
   coords: number[];
   attack: number[];
 }
+
+export interface EnvironmentVars {
+  environment: string;
+}

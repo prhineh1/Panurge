@@ -18,6 +18,9 @@ services:
     ports:
       - "8080:80" # nginx
       - "3000:3000" # esbuild dev server
+    
+    environment:
+      - ENVIRONMENT=dev
 
     # Uncomment the next four lines if you will use a ptrace-based debugger like C++, Go, and Rust.
     # cap_add:

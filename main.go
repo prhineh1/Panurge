@@ -15,6 +15,7 @@ func main() {
 	http.Handle("/register", r.Logger(c.Env, r.Register(c.Env)))
 	http.Handle("/logout", r.Logger(c.Env, r.Logout(c.Env)))
 	http.Handle("/game", r.Logger(c.Env, r.Game(c.Env)))
+	http.Handle("/environment", r.EnvVars())
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 
 	c.Env.Log.Println("Server is starting on port " + p)
