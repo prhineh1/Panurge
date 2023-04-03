@@ -1,5 +1,6 @@
 services:
   backend:
+    env_file: .env
     depends_on:
       - pg
       - cache
@@ -8,16 +9,15 @@ services:
       dockerfile: Dockerfile
     container_name: backend
     hostname: backend
-    environment:
-      - DATABASE_HOST=db
     networks:
       - app-net
     restart: on-failure
   pg:
+    env_file: .env
     image: postgres:15-alpine
     container_name: pg
     environment:
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
       - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
     hostname: db
@@ -26,6 +26,7 @@ services:
     volumes:
       - panurge:/var/lib/postgresql/data
   cache:
+    env_file: .env
     image: redis:alpine
     container_name: cache
     hostname: redis

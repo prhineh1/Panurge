@@ -1,6 +1,8 @@
 import * as esbuild from 'esbuild';
 import sassPlugin from 'esbuild-plugin-sass';
 
+const port = +process.env.ESBUILD_PORT;
+
 const ctx = await esbuild.context({
   entryPoints: ['./assets/index.tsx'],
   bundle: true,
@@ -13,7 +15,7 @@ const ctx = await esbuild.context({
 
 await ctx.watch();
 
-const { host, port } = await ctx.serve({
-  port: 3000,
+await ctx.serve({
+  port,
   servedir: 'dist',
 });

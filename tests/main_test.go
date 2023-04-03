@@ -16,15 +16,14 @@ var env *config.Environment
 
 func TestMain(m *testing.M) {
 	var err error
-	TestDB, err = models.NewDB(os.Getenv("HEROKU_POSTGRESQL_GREEN_URL"),
-		os.Getenv("HEROKU_REDIS_GOLD_URL"),
-		true)
+	TestDB, err = models.NewDB(true)
 	if err != nil {
 		log.Panic(err)
 	}
 
 	err = setUp(TestDB)
 	if err != nil {
+		tearDown(TestDB)
 		log.Panic(err)
 	}
 
