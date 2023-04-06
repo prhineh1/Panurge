@@ -19,10 +19,9 @@ services:
 
     ports:
       - "80:80" # nginx
-      - "443:443"
+      - "443:443" # nginx
     
-    environment:
-      - ENVIRONMENT=dev
+    env_file: .devcontainer/dev.env
 
     # Uncomment the next four lines if you will use a ptrace-based debugger like C++, Go, and Rust.
     # cap_add:

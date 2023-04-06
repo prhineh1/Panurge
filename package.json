@@ -9,6 +9,7 @@
   "scripts": {
     "test": "jest",
     "build:dev": "node esBuild.dev.mjs",
+    "build": "node esBuild.mjs",
     "check-types": "tsc || true"
   },
   "repository": {

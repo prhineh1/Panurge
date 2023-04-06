@@ -6,6 +6,3 @@ go mod tidy
 # install vim
 apt update
 apt install vim procps -y
-
-# start nginx
-service nginx start
